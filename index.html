@@ -5,10 +5,10 @@
   <title>midnightpuppy.exe – BIO DASHBOARD</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- CSS is at /css/midnightpuppy-bio.css -->
+  <!-- CSS lives at /css/midnightpuppy-bio.css -->
   <link rel="stylesheet" href="/css/midnightpuppy-bio.css" />
 
-  <!-- logo.png must be at site root: /logo.png -->
+  <!-- If you don't have /logo.png yet, you can remove these lines -->
   <link rel="icon" href="/logo.png" type="image/png" />
   <link rel="apple-touch-icon" href="/logo.png" />
 </head>
@@ -18,16 +18,15 @@
   <!-- TOP HUD -->
   <header class="hud-top">
     <div class="hud-brand">
-      <!-- GLITCH TITLE -->
       <div class="hud-title glitch" data-text="midnightpuppy.exe">midnightpuppy.exe</div>
-      <div class="hud-sub">BIO DASHBOARD • SIGNAL UNSTABLE</div>
+      <div class="hud-sub">BIO DASHBOARD • SIGNAL UNSTABLE • HEART IN SAFE MODE</div>
     </div>
 
     <nav class="hud-nav" aria-label="Bio navigation">
-      <a href="/index.html" class="hud-link">HOME</a>
-      <a href="/bio/" class="hud-link active">BIO</a>
+      <a href="/index.html" class="hud-link active">BIO</a>
       <a href="/links/" class="hud-link">LINKS</a>
       <a href="/status/" class="hud-link">STATUS</a>
+      <a href="/home/" class="hud-link">HOME</a>
     </nav>
 
     <div class="hud-stats">
@@ -40,14 +39,14 @@
   <!-- MAIN GRID -->
   <main class="grid">
 
-    <!-- LEFT: IDENTITY -->
+    <!-- LEFT: PROFILE -->
     <section class="panel profile">
       <div class="panel-head">
         <span>USER PROFILE</span>
         <span class="chip">ONLINE-ish</span>
       </div>
 
-      <!-- AVATAR IMG (set your image path here) -->
+      <!-- AVATAR: change src to your real file if you add one -->
       <div class="avatar">
         <img
           class="avatar-img"
@@ -60,19 +59,19 @@
       </div>
 
       <div class="profile-name">MIDNIGHTPUPPY.EXE</div>
-      <div class="profile-meta">Build: <b>softcore</b> • Mode: <b>quiet</b> • Timezone: <b>always tired</b></div>
+      <div class="profile-meta">Build: <b>emo-cute</b> • Mode: <b>quiet</b> • Status: <b>softly fading</b></div>
 
       <div class="bars">
         <div class="bar-wrap">
           <div class="bar-label">SOCIAL BATTERY</div>
-          <div class="bar"><div class="fill hp" style="width:34%"></div></div>
-          <div class="bar-value">34 / 100</div>
+          <div class="bar"><div class="fill hp" style="width:28%"></div></div>
+          <div class="bar-value">28 / 100</div>
         </div>
 
         <div class="bar-wrap">
           <div class="bar-label">AFFECTION.EXE</div>
-          <div class="bar"><div class="fill ep" style="width:18%"></div></div>
-          <div class="bar-value">corrupted / partially recoverable</div>
+          <div class="bar"><div class="fill ep" style="width:16%"></div></div>
+          <div class="bar-value">corrupted / auto-repair failed</div>
         </div>
       </div>
 
@@ -81,8 +80,9 @@
       <div class="mini-title">LOADOUT</div>
       <ul class="list">
         <li>hoodie.zip (oversized)</li>
-        <li>music_loop.mp3 (on repeat)</li>
+        <li>music_loop.mp3 (repeat x999)</li>
         <li>comfort_emote.dll (missing)</li>
+        <li>tears.tmp (locked)</li>
       </ul>
     </section>
 
@@ -90,7 +90,7 @@
     <section class="panel quest">
       <div class="panel-head">
         <span>BIO LOG</span>
-        <span class="chip cyan">LIVE FEED</span>
+        <span class="chip pink">LIVE</span>
       </div>
 
       <ul class="quests">
@@ -110,13 +110,24 @@
           <span class="tag red">WARNING</span>
         </li>
       </ul>
+
+      <div class="divider"></div>
+
+      <div class="mini-title">VIBES</div>
+      <div class="chips-row">
+        <span class="soft-chip">♡ soft</span>
+        <span class="soft-chip">✶ clingy</span>
+        <span class="soft-chip">☾ nocturnal</span>
+        <span class="soft-chip">⛓ quiet</span>
+        <span class="soft-chip">⋆ fragile</span>
+      </div>
     </section>
 
     <!-- RIGHT: FRIEND SIGNALS -->
     <section class="panel party">
       <div class="panel-head">
         <span>FRIEND SIGNALS</span>
-        <span class="chip cyan">3</span>
+        <span class="chip pink">3</span>
       </div>
 
       <div class="member">
@@ -136,7 +147,7 @@
           <div class="m-name">sleep.exe <span class="lvl">denied</span></div>
           <div class="m-bars">
             <div class="m-bar"><div class="m-fill" style="width:12%"></div></div>
-            <div class="m-sub">2:14am / still awake</div>
+            <div class="m-sub">3:07am / still awake</div>
           </div>
         </div>
       </div>
@@ -146,7 +157,7 @@
         <div class="m-info">
           <div class="m-name">anxiety.dll <span class="lvl">running</span></div>
           <div class="m-bars">
-            <div class="m-bar"><div class="m-fill" style="width:88%"></div></div>
+            <div class="m-bar"><div class="m-fill" style="width:90%"></div></div>
             <div class="m-sub">background process • cannot close</div>
           </div>
         </div>
@@ -164,7 +175,35 @@
         <li>smiled once (accidental)</li>
         <li>ignored notifications (on purpose)</li>
         <li>missed you (quietly)</li>
+        <li>replayed old memories (unhealthy)</li>
       </ul>
+    </section>
+
+    <!-- WIDE: SYSTEM LOG (replaces memory map) -->
+    <section class="panel syslog">
+      <div class="panel-head">
+        <span>SYSTEM LOG</span>
+        <span class="chip pink">STREAMING</span>
+      </div>
+
+      <div class="terminal" aria-label="System log terminal">
+        <div class="term-line"><span class="term-time">00:00:01</span> booting midnightpuppy.exe…</div>
+        <div class="term-line"><span class="term-time">00:00:02</span> loading feelings.dll… <span class="term-warn">warning</span></div>
+        <div class="term-line"><span class="term-time">00:00:03</span> affection.exe <span class="term-bad">corrupted</span></div>
+        <div class="term-line"><span class="term-time">00:00:04</span> ping unstable • retrying…</div>
+        <div class="term-line"><span class="term-time">00:00:05</span> starting soft-mode UI… <span class="term-ok">ok</span></div>
+
+        <div class="term-gap"></div>
+
+        <div class="term-line"><span class="term-time">00:00:06</span> note: if i’m quiet, i’m not gone.</div>
+        <div class="term-line"><span class="term-time">00:00:07</span> note: please be gentle with this build.</div>
+        <div class="term-line"><span class="term-time">00:00:08</span> note: i bite (but only when scared).</div>
+
+        <div class="term-gap"></div>
+
+        <div class="term-line"><span class="term-time">00:00:09</span> <span class="term-dim">heartbeat:</span> buffering…</div>
+        <div class="term-line"><span class="term-time">00:00:10</span> <span class="term-dim">status:</span> online-ish • quietly longing</div>
+      </div>
     </section>
 
   </main>
@@ -172,18 +211,15 @@
   <!-- SYSTEM TOAST (TYPING) -->
   <div class="sao-toast show" role="status" aria-live="polite">
     <div class="sao-toast-header">SYSTEM</div>
-
-    <!-- typing target -->
     <div class="sao-toast-body">
       <span class="type" id="toastType"></span><span class="caret" aria-hidden="true">▍</span>
     </div>
-
     <button class="sao-toast-close" type="button" aria-label="Close system status">✕</button>
     <div class="sao-toast-progress"></div>
   </div>
 
   <script>
-    // Toast timer behavior (your original)
+    // Toast timer behavior (auto close)
     const BASE_TIME = 12000;
     const STAGGER = 1500;
 
@@ -211,7 +247,7 @@
       }
     });
 
-    // Typing animation
+    // Typing animation for toast line
     const line = "midnightpuppy.exe has entered the void • ping unstable • affection.exe corrupted";
     const el = document.getElementById("toastType");
     let i = 0;
@@ -219,9 +255,7 @@
     function typeNext() {
       if (!el) return;
       el.textContent = line.slice(0, i++);
-      if (i <= line.length) {
-        setTimeout(typeNext, 28);
-      }
+      if (i <= line.length) setTimeout(typeNext, 26);
     }
     typeNext();
   </script>
