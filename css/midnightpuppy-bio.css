@@ -34,6 +34,86 @@ body {
   color: #ff78d2;
   text-shadow: 0 0 14px rgba(255,120,210,0.32);
 }
+
+/* ===== GLITCH TITLE ===== */
+.glitch{
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+.glitch::before,
+.glitch::after{
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.glitch::before{
+  transform: translate(1px, 0);
+  color: rgba(0,234,255,0.85);
+  clip-path: inset(0 0 60% 0);
+  animation: glitchTop 2.4s infinite linear alternate-reverse;
+}
+.glitch::after{
+  transform: translate(-1px, 0);
+  color: rgba(255,120,210,0.85);
+  clip-path: inset(55% 0 0 0);
+  animation: glitchBot 1.9s infinite linear alternate-reverse;
+}
+@keyframes glitchTop{
+  0%{ clip-path: inset(0 0 60% 0); transform: translate(1px, 0); }
+  20%{ clip-path: inset(0 0 40% 0); transform: translate(2px, -1px); }
+  40%{ clip-path: inset(0 0 70% 0); transform: translate(0px, 1px); }
+  60%{ clip-path: inset(0 0 50% 0); transform: translate(2px, 0px); }
+  80%{ clip-path: inset(0 0 65% 0); transform: translate(1px, -1px); }
+  100%{ clip-path: inset(0 0 55% 0); transform: translate(0px, 0px); }
+}
+@keyframes glitchBot{
+  0%{ clip-path: inset(55% 0 0 0); transform: translate(-1px, 0); }
+  20%{ clip-path: inset(45% 0 0 0); transform: translate(-2px, 1px); }
+  40%{ clip-path: inset(65% 0 0 0); transform: translate(0px, -1px); }
+  60%{ clip-path: inset(50% 0 0 0); transform: translate(-2px, 0px); }
+  80%{ clip-path: inset(62% 0 0 0); transform: translate(-1px, 1px); }
+  100%{ clip-path: inset(58% 0 0 0); transform: translate(0px, 0px); }
+}
+
+/* ===== TYPING CARET ===== */
+.type{ white-space: normal; }
+.caret{
+  display: inline-block;
+  margin-left: 2px;
+  opacity: 0.9;
+  animation: blink 0.9s steps(2, end) infinite;
+}
+@keyframes blink{
+  0%, 49%{ opacity: 1; }
+  50%, 100%{ opacity: 0; }
+}
+
+/* ===== AVATAR IMG ===== */
+.avatar{
+  position: relative;
+}
+.avatar-img{
+  width: 132px;
+  height: 132px;
+  border-radius: 22px;
+  object-fit: cover;
+  border: 1px solid rgba(0,234,255,0.18);
+  box-shadow: 0 0 18px rgba(255,120,210,0.14), 0 0 14px rgba(0,234,255,0.12);
+  z-index: 2;
+}
+.avatar-silhouette{
+  display: none;
+}
+.avatar.avatar-fallback .avatar-silhouette{
+  display: block;
+}
+
 .hud-sub{
   font-size: 12px;
   opacity: 0.85;
