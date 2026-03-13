@@ -23,6 +23,10 @@
   --text: #eef5ff;
   --muted: rgba(220, 230, 255, 0.72);
   --shadow: rgba(71, 216, 255, 0.18);
+
+  --title-glow: rgba(71, 216, 255, 0.20);
+  --glitch-top: rgba(71, 216, 255, 0.62);
+  --glitch-bottom: rgba(177, 136, 255, 0.75);
 }
 
 body{
@@ -110,7 +114,7 @@ body{
   font-weight: 800;
   letter-spacing: 2px;
   color: var(--cyan2);
-  text-shadow: 0 0 18px rgba(71, 216, 255, 0.20);
+  text-shadow: 0 0 18px var(--title-glow);
 }
 
 .hud-sub{
@@ -227,6 +231,7 @@ body{
 }
 
 .chip.pink{ color: #d9c0ff; }
+
 .chip.cyan{
   color: var(--cyan2);
   border-color: rgba(71, 216, 255, 0.16);
@@ -497,9 +502,9 @@ body{
 
 .syslog .terminal::after{
   content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background: linear-gradient(180deg, transparent, rgba(71, 216, 255, 0.05), transparent);
   animation: termScan 5s linear infinite;
   opacity: 0.40;
@@ -634,14 +639,14 @@ body{
 
 .glitch::before{
   transform: translate(1px, 0);
-  color: rgba(71, 216, 255, 0.62);
+  color: var(--glitch-top);
   clip-path: inset(0 0 60% 0);
   animation: glitchTop 2.8s infinite linear alternate-reverse;
 }
 
 .glitch::after{
   transform: translate(-1px, 0);
-  color: rgba(177, 136, 255, 0.75);
+  color: var(--glitch-bottom);
   clip-path: inset(55% 0 0 0);
   animation: glitchBot 2.2s infinite linear alternate-reverse;
 }
