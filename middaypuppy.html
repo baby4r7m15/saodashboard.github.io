@@ -249,47 +249,46 @@
       el.innerHTML = lines.map((line) => `<div class="terminal-line">${escapeHtml(line)}</div>`).join("");
     }
 
-    function runTypingToast(text = "") {
-      const target = document.getElementById("toastType");
-      if (!target) return;
-
-      target.textContent = "";
+    function runTypingToast(line) {
+      const el = document.getElementById("toastType");
       let i = 0;
+      el.textContent = "";
 
-      const tick = () => {
-        if (i <= text.length) {
-          target.textContent = text.slice(0, i);
-          i += 1;
-          setTimeout(tick, 24);
-        }
-      };
+      function typeNext() {
+        el.textContent = line.slice(0, i++);
+        if (i <= line.length) setTimeout(typeNext, 24);
+      }
 
-      tick();
+      typeNext();
     }
 
     function setupToastTimer() {
-      const toast = document.getElementById("saoToast");
-      if (!toast) return;
+      const BASE_TIME = 14000;
+      const STAGGER = 1500;
 
-      const closeBtn = toast.querySelector(".sao-toast-close");
-      const progress = toast.querySelector(".sao-toast-progress");
+      document.querySelectorAll(".sao-toast").forEach((toast, index) => {
+        const progress = toast.querySelector(".sao-toast-progress");
+        const totalTime = BASE_TIME + (index * STAGGER);
 
-      requestAnimationFrame(() => toast.classList.add("show"));
+        if (progress) {
+          progress.style.animation = `toastTimer ${totalTime / 1000}s linear forwards`;
+        }
 
-      let autoClose = setTimeout(() => {
-        if (progress) progress.style.animation = "none";
-        toast.classList.remove("show");
-        setTimeout(() => toast.remove(), 220);
-      }, 7000);
-
-      if (closeBtn) {
-        closeBtn.addEventListener("click", () => {
-          clearTimeout(autoClose);
-          if (progress) progress.style.animation = "none";
+        const autoClose = setTimeout(() => {
           toast.classList.remove("show");
           setTimeout(() => toast.remove(), 220);
-        });
-      }
+        }, totalTime);
+
+        const closeBtn = toast.querySelector(".sao-toast-close");
+        if (closeBtn) {
+          closeBtn.addEventListener("click", () => {
+            clearTimeout(autoClose);
+            if (progress) progress.style.animation = "none";
+            toast.classList.remove("show");
+            setTimeout(() => toast.remove(), 220);
+          });
+        }
+      });
     }
 
     async function loadBioData() {
