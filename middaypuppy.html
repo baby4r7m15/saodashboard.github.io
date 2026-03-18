@@ -106,7 +106,7 @@
   </div>
 
   <script>
-    const DATA_URL = "/data/middaypuppy.json";
+  const DATA_URL = "/data/middaypuppy.json";
 
     function escapeHtml(str) {
       return String(str)
@@ -131,6 +131,7 @@
       if (!theme) return;
 
       const root = document.documentElement;
+
       const themeMap = {
         bg: "--bg",
         bg2: "--bg2",
@@ -147,106 +148,170 @@
         line2: "--line2",
         text: "--text",
         muted: "--muted",
-        shadow: "--shadow",
-        titleGlow: "--title-glow",
-        glitchTop: "--glitch-top",
-        glitchBottom: "--glitch-bottom"
+        shadow: "--shadow"
       };
 
-      Object.entries(themeMap).forEach(([key, cssVar]) => {
-        if (theme[key]) root.style.setProperty(cssVar, theme[key]);
+      Object.entries(themeMap).forEach(([jsonKey, cssVar]) => {
+        if (theme[jsonKey]) {
+          root.style.setProperty(cssVar, theme[jsonKey]);
+        }
       });
 
       if (theme.themeColor) {
         const meta = document.getElementById("themeColorMeta");
         if (meta) meta.setAttribute("content", theme.themeColor);
       }
+
+      if (theme.titleGlow) {
+        root.style.setProperty("--title-glow", theme.titleGlow);
+      }
+
+      if (theme.glitchTop) {
+        root.style.setProperty("--glitch-top", theme.glitchTop);
+      }
+
+      if (theme.glitchBottom) {
+        root.style.setProperty("--glitch-bottom", theme.glitchBottom);
+      }
     }
 
-    function renderNav(items = []) {
+    function renderNav(navItems) {
       const nav = document.getElementById("siteNav");
-      if (!nav) return;
+      nav.innerHTML = "";
 
-      nav.innerHTML = items
-        .map(
-          (item) => `
-            <a class="hud-link${item.active ? " active" : ""}" href="${escapeHtml(item.href)}">
-              ${escapeHtml(item.label)}
-            </a>
-          `
-        )
-        .join("");
+      navItems.forEach((item) => {
+        const a = document.createElement("a");
+        a.href = item.href || "#";
+        a.className = "hud-link" + (item.active ? " active" : "");
+        a.textContent = item.label || "LINK";
+        nav.appendChild(a);
+      });
     }
 
-    function renderTopStats(items = []) {
+    function renderTopStats(stats) {
       const wrap = document.getElementById("topStats");
-      if (!wrap) return;
+      wrap.innerHTML = "";
 
-      wrap.innerHTML = items
-        .map(
-          (item) => `
-            <div class="hud-stat">
-              <span class="hud-stat-label">${escapeHtml(item.label)}</span>
-              <span class="hud-stat-value">${escapeHtml(item.value)}</span>
-            </div>
-          `
-        )
-        .join("");
+      stats.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "stat";
+        div.innerHTML = `${escapeHtml(item.label)} <b>${escapeHtml(item.value)}</b>`;
+        wrap.appendChild(div);
+      });
     }
 
-    function renderBars(items = []) {
+    function renderBars(bars) {
       const wrap = document.getElementById("profileBars");
-      if (!wrap) return;
+      wrap.innerHTML = "";
 
-      wrap.innerHTML = items
-        .map(
-          (item) => `
-            <div class="bar-row">
-              <div class="bar-meta">
-                <span>${escapeHtml(item.label)}</span>
-                <span>${Number(item.percent) || 0}%</span>
-              </div>
-              <div class="bar">
-                <span class="bar-fill ${escapeHtml(item.fillClass || "")}" style="width:${Number(item.percent) || 0}%"></span>
-              </div>
+      bars.forEach((bar) => {
+        const outer = document.createElement("div");
+        outer.className = "bar-wrap";
+
+        const fillClass = bar.fillClass ? `fill ${bar.fillClass}` : "fill";
+        const width = Math.max(0, Math.min(Number(bar.percent || 0), 100));
+
+        outer.innerHTML = `
+          <div class="bar-label">${escapeHtml(bar.label)}</div>
+          <div class="bar"><div class="${fillClass}" style="width:${width}%"></div></div>
+          <div class="bar-value">${escapeHtml(bar.value)}</div>
+        `;
+        wrap.appendChild(outer);
+      });
+    }
+
+    function renderSimpleList(id, items) {
+      const list = document.getElementById(id);
+      list.innerHTML = "";
+
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+      });
+    }
+
+    function renderBioLog(entries) {
+      const list = document.getElementById("bioLogList");
+      list.innerHTML = "";
+
+      entries.forEach((entry) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span class="q-dot"></span>
+          ${escapeHtml(entry.text)}
+          <span class="tag ${escapeHtml(entry.tagClass || "")}">${escapeHtml(entry.tag)}</span>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function renderVibes(vibes) {
+      const wrap = document.getElementById("vibesList");
+      wrap.innerHTML = "";
+
+      vibes.forEach((vibe) => {
+        const span = document.createElement("span");
+        span.className = "soft-chip";
+        span.textContent = vibe;
+        wrap.appendChild(span);
+      });
+    }
+
+    function renderStatsCards(cards) {
+      const wrap = document.getElementById("statsCards");
+      wrap.innerHTML = "";
+
+      cards.forEach((card, index) => {
+        const div = document.createElement("div");
+        div.className = "member";
+
+        const pfpClass = index === 0 ? "pfp" : `pfp pfp${index + 1}`;
+        const width = Math.max(0, Math.min(Number(card.percent || 0), 100));
+
+        div.innerHTML = `
+          <div class="${pfpClass}"></div>
+          <div class="m-info">
+            <div class="m-name">${escapeHtml(card.name)} <span class="lvl">${escapeHtml(card.level)}</span></div>
+            <div class="m-bars">
+              <div class="m-bar"><div class="m-fill" style="width:${width}%"></div></div>
+              <div class="m-sub">${escapeHtml(card.subtext)}</div>
             </div>
-          `
-        )
-        .join("");
+          </div>
+        `;
+        wrap.appendChild(div);
+      });
     }
 
-    function renderList(id, items = []) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
-    }
+    function renderSystemLog(lines) {
+      const wrap = document.getElementById("systemLogLines");
+      wrap.innerHTML = "";
 
-    function renderVibes(items = []) {
-      const el = document.getElementById("vibesTags");
-      if (!el) return;
-      el.innerHTML = items.map((item) => `<span class="tag">${escapeHtml(item)}</span>`).join("");
-    }
+      lines.forEach((line) => {
+        if (line.type === "gap") {
+          const gap = document.createElement("div");
+          gap.className = "term-gap";
+          wrap.appendChild(gap);
+          return;
+        }
 
-    function renderStatsCards(items = []) {
-      const el = document.getElementById("statsCards");
-      if (!el) return;
+        const row = document.createElement("div");
+        row.className = "term-line";
 
-      el.innerHTML = items
-        .map(
-          (item) => `
-            <article class="stat-card">
-              <div class="stat-label">${escapeHtml(item.label)}</div>
-              <div class="stat-value">${escapeHtml(item.value)}</div>
-            </article>
-          `
-        )
-        .join("");
-    }
+        const statusHTML = line.status
+          ? ` <span class="${escapeHtml(line.statusClass || "")}">${escapeHtml(line.status)}</span>`
+          : "";
 
-    function renderSystemLog(lines = []) {
-      const el = document.getElementById("systemLog");
-      if (!el) return;
-      el.innerHTML = lines.map((line) => `<div class="terminal-line">${escapeHtml(line)}</div>`).join("");
+        const messageHTML = line.dimPrefix
+          ? `<span class="term-dim">${escapeHtml(line.dimPrefix)}</span> ${escapeHtml(line.message)}${statusHTML}`
+          : `${escapeHtml(line.message)}${statusHTML}`;
+
+        row.innerHTML = `
+          <span class="term-time">${escapeHtml(line.time)}</span>
+          ${messageHTML}
+        `;
+        wrap.appendChild(row);
+      });
     }
 
     function runTypingToast(line) {
@@ -299,6 +364,7 @@
         const data = await response.json();
 
         applyTheme(data.theme);
+
         document.title = data.head.title || document.title;
 
         const siteTitle = document.getElementById("siteTitle");
@@ -313,33 +379,31 @@
         setText("profileChip", data.profile.panelChip);
 
         const avatarImg = document.getElementById("avatarImg");
-        if (avatarImg && data.profile.avatar) {
-          avatarImg.src = data.profile.avatar.src;
-          avatarImg.alt = data.profile.avatar.alt || "";
-        }
+        avatarImg.src = data.profile.avatar.src;
+        avatarImg.alt = data.profile.avatar.alt || "avatar";
 
         setText("profileName", data.profile.name);
         setHTML("profileMeta", data.profile.metaHtml);
         renderBars(data.profile.bars);
         setText("loadoutTitle", data.profile.loadoutTitle);
-        renderList("loadoutList", data.profile.loadout);
+        renderSimpleList("loadoutList", data.profile.loadout);
 
         setText("bioPanelTitle", data.bio.panelTitle);
         setText("bioChip", data.bio.panelChip);
-        renderList("bioEntries", data.bio.entries);
+        renderBioLog(data.bio.entries);
         setText("vibesTitle", data.bio.vibesTitle);
         renderVibes(data.bio.vibes);
 
         setText("statsPanelTitle", data.statsPanel.panelTitle);
-        setText("statsChip", data.statsPanel.panelChip);
+        setText("statsPanelChip", data.statsPanel.panelChip);
         renderStatsCards(data.statsPanel.cards);
 
-        setText("reportPanelTitle", data.statusReport.panelTitle);
-        setText("reportChip", data.statusReport.panelChip);
-        renderList("reportItems", data.statusReport.items);
+        setText("statusPanelTitle", data.statusReport.panelTitle);
+        setText("statusPanelChip", data.statusReport.panelChip);
+        renderSimpleList("statusReportList", data.statusReport.items);
 
-        setText("systemPanelTitle", data.systemLog.panelTitle);
-        setText("systemChip", data.systemLog.panelChip);
+        setText("systemLogTitle", data.systemLog.panelTitle);
+        setText("systemLogChip", data.systemLog.panelChip);
         renderSystemLog(data.systemLog.lines);
 
         setText("toastHeader", data.toast.header);
