@@ -5,32 +5,30 @@
   "theme": {
     "bg": "#fff4fb",
     "bg2": "#ffeaf6",
-    "panel": "rgba(255, 244, 251, 0.82)",
-    "panel2": "rgba(255, 244, 251, 0.64)",
-    "cyan": "#aeefff",
-    "cyan2": "#d8f7ff",
-    "blue": "#b8ccff",
-    "violet": "#d9c2ff",
-    "purple": "#e7c8ff",
-    "pink": "#ffadd6",
-    "pink2": "#ffd3ea",
+    "panel": "rgba(255, 244, 251, 0.84)",
+    "panel2": "rgba(255, 244, 251, 0.68)",
+    "cyan": "#acecff",
+    "cyan2": "#daf7ff",
+    "blue": "#bdd0ff",
+    "violet": "#d8c0ff",
+    "purple": "#eccdff",
+    "pink": "#ffacd5",
+    "pink2": "#ffd5ea",
     "line": "rgba(255, 173, 214, 0.28)",
-    "line2": "rgba(184, 204, 255, 0.24)",
-    "text": "#6b5676",
-    "muted": "rgba(107, 86, 118, 0.68)",
-    "shadow": "0 18px 60px rgba(255, 182, 215, 0.24)",
+    "line2": "rgba(189, 208, 255, 0.24)",
+    "text": "#6d5a79",
+    "muted": "rgba(109, 90, 121, 0.68)",
+    "shadow": "0 18px 60px rgba(255, 182, 215, 0.22)",
     "themeColor": "#fff0f7",
-    "titleGlow": "0 0 18px rgba(255, 182, 222, 0.55)",
+    "titleGlow": "0 0 18px rgba(255, 190, 226, 0.65)",
     "glitchTop": "#ffffff",
-    "glitchBottom": "#ffd6ee"
+    "glitchBottom": "#ffd8ee"
   },
   "header": {
     "title": "middaypuppy.exe",
     "subtitle": "SAFE MODE • SUNBEAM STABLE • AFFECTION RESTORED",
     "nav": [
-      { "label": "Home", "href": "/", "active": false },
-      { "label": "Midnight", "href": "/index.html", "active": false },
-      { "label": "Midday", "href": "/middaypuppy.html", "active": true }
+      { "label": "Home", "href": "/", "active": false }
     ],
     "stats": [
       { "label": "Mood", "value": "bright" },
@@ -42,7 +40,7 @@
     "panelTitle": "USER PROFILE",
     "panelChip": "ONLINE",
     "avatar": {
-      "src": "/images/middaypuppy-avatar.png",
+      "src": "/images/puppyboypfp.png",
       "alt": "middaypuppy.exe avatar"
     },
     "name": "MIDDAYPUPPY.EXE",
