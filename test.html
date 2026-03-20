@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>middaypuppy.exe - Uh oh!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" sizes="512x512" href="/images/puppyboypfp.png" />
+<link rel="apple-touch-icon" href="/images/puppyboypfp.png" />
+<meta name="theme-color" content="#fff0f7" id="themeColorMeta" />
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap");
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+body{
+  font-family:"Montserrat",sans-serif;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,.9), transparent 40%),
+    radial-gradient(circle at 20% 20%, rgba(255,200,230,.4), transparent 25%),
+    radial-gradient(circle at 80% 30%, rgba(200,230,255,.4), transparent 25%),
+    linear-gradient(180deg,#fff4fb,#ffeaf6);
+  overflow:hidden;
+  color:#6d5a79;
+}
+
+/* sparkles */
+.sparkles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.9) 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 2px);
+  background-size:120px 120px, 160px 160px;
+  animation: float 10s linear infinite;
+  opacity:.6;
+}
+
+@keyframes float{
+  0%{ transform:translateY(0); }
+  50%{ transform:translateY(-20px); }
+  100%{ transform:translateY(0); }
+}
+
+.card{
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(255,180,215,.35);
+  border-radius:28px;
+  padding:40px 32px;
+  width:min(420px,90%);
+  text-align:center;
+  backdrop-filter:blur(16px);
+  box-shadow:0 20px 60px rgba(255,182,215,.25);
+}
+
+.title{
+  font-weight:800;
+  letter-spacing:.1em;
+  font-size:1.4rem;
+  color:#ffb6c1;
+  text-shadow:0 0 14px rgba(255,190,230,.7);
+}
+
+.subtitle{
+  margin-top:8px;
+  font-size:.8rem;
+  letter-spacing:.18em;
+  color:rgba(120,100,140,.7);
+}
+
+.status{
+  margin-top:28px;
+  font-size:.95rem;
+}
+
+.status span{
+  color:#ff9ed1;
+}
+
+/* loader */
+.puppy-loader{
+  margin: 26px auto;
+  animation: floaty 3s ease-in-out infinite;
+}
+
+.puppy-face{
+  width:104px;
+  height:104px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid rgba(255,255,255,.7);
+}
+
+@keyframes floaty{
+  50%{ transform:translateY(-5px); }
+}
+
+/* 🌸✨ ULTRA FLUFFY ANIME TAIL */
+.tail-widget{
+  position:fixed;
+  bottom:-140px;
+  right:18px;
+  width:120px;
+  height:160px;
+  z-index:100;
+  cursor:pointer;
+
+  animation:
+    tailPop 1s cubic-bezier(.2,.8,.2,1) forwards,
+    tailIdle 2.8s ease-in-out infinite 1s;
+
+  filter:
+    drop-shadow(0 12px 22px rgba(255,182,215,.4))
+    drop-shadow(0 0 18px rgba(200,230,255,.6));
+}
+
+.tail{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-origin: bottom center;
+}
+
+/* fluffy blobs */
+.tail div{
+  position:absolute;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 30%, #fff 0%, #ffd6ee 20%, #ffb3d8 40%, #bde3ff 70%, #caa6ff 100%);
+}
+
+/* layers */
+.t1{ width:70px;height:70px;bottom:0;left:20px;}
+.t2{ width:65px;height:65px;bottom:30px;left:10px;}
+.t3{ width:55px;height:55px;bottom:55px;left:30px;}
+.t4{ width:45px;height:45px;bottom:80px;left:40px;}
+.t5{ width:35px;height:35px;bottom:105px;left:50px;}
+
+/* pop in */
+@keyframes tailPop{
+  to{ bottom:12px; }
+}
+
+/* idle wag + squish */
+@keyframes tailIdle{
+  0%,100%{ transform: rotate(0deg) scaleY(1);}
+  50%{ transform: rotate(10deg) scaleY(1.05);}
+}
+
+/* hover excitement */
+.tail-widget:hover .tail{
+  animation: tailExcited .5s ease-in-out infinite;
+}
+
+@keyframes tailExcited{
+  0%,100%{ transform: rotate(0deg) scale(1);}
+  50%{ transform: rotate(18deg) scale(1.1);}
+}
+
+/* click zoomies */
+.tail-widget.dance .tail{
+  animation: tailDance .35s ease-in-out infinite;
+}
+
+@keyframes tailDance{
+  0%{ transform: rotate(0deg);}
+  25%{ transform: rotate(22deg);}
+  50%{ transform: rotate(-22deg);}
+  75%{ transform: rotate(14deg);}
+  100%{ transform: rotate(0deg);}
+}
+
+/* sparkle pulse */
+.tail::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background: radial-gradient(circle, rgba(255,255,255,.4), transparent 60%);
+  animation: glowPulse 2.5s infinite;
+}
+
+@keyframes glowPulse{
+  50%{ opacity:.7; transform:scale(1.1);}
+}
+
+/* message + heart */
+.msg{
+  font-size:.85rem;
+  margin-top:16px;
+}
+
+.heart{
+  font-size:1.4rem;
+  margin-top:10px;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  50%{ transform:scale(1.2);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sparkles"></div>
+
+<div class="card">
+  <div class="title">middaypuppy.exe</div>
+  <div class="subtitle">SYSTEM: gently restoring</div>
+
+  <div class="status">
+    please wait… <span>new stuffs incoming!</span>
+  </div>
+
+  <div class="puppy-loader">
+    <img src="/images/puppyboypfp.png" class="puppy-face" />
+  </div>
+
+  <div class="msg">we will be here soon ♡ please check back later</div>
+  <div class="heart">♡</div>
+</div>
+
+<!-- 🐾 TAIL -->
+<div class="tail-widget" id="tail">
+  <div class="tail">
+    <div class="t1"></div>
+    <div class="t2"></div>
+    <div class="t3"></div>
+    <div class="t4"></div>
+    <div class="t5"></div>
+  </div>
+</div>
+
+<script>
+const tail = document.getElementById("tail");
+
+tail.addEventListener("click", () => {
+  tail.classList.add("dance");
+  setTimeout(()=>tail.classList.remove("dance"),700);
+});
+</script>
+
+</body>
+</html>
