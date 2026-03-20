@@ -84,38 +84,87 @@ body{
   color:#ff9ed1;
 }
 
-/* 🌸 NEW SPINNER */
-.loader{
-  margin:26px auto 0;
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  position:relative;
+/* 🐾 PUPPY LOADER */
+.puppy-loader{
+  position: relative;
+  width: 132px;
+  height: 132px;
+  margin: 26px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: puppyFloat 3.2s ease-in-out infinite;
 }
 
-.loader::before{
+.puppy-face{
+  position: relative;
+  z-index: 3;
+  width: 104px;
+  height: 104px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,.72);
+  box-shadow:
+    0 10px 28px rgba(255,182,215,.26),
+    0 0 22px rgba(255,255,255,.55);
+  background: rgba(255,255,255,.55);
+}
+
+.puppy-ear{
+  position: absolute;
+  top: 6px;
+  width: 44px;
+  height: 58px;
+  z-index: 1;
+  background: linear-gradient(180deg, #d7a889 0%, #bf8769 100%);
+  border: 3px solid rgba(255,255,255,.35);
+  box-shadow:
+    0 8px 18px rgba(255,182,215,.16),
+    inset 0 2px 8px rgba(255,255,255,.18);
+}
+
+.puppy-ear::after{
   content:"";
   position:absolute;
-  inset:0;
-  border-radius:50%;
-  border:4px solid rgba(255,180,215,.25);
+  inset: 9px 8px 13px 8px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,220,230,.72), rgba(255,205,220,.45));
+  opacity: .55;
 }
 
-.loader::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  border:4px solid transparent;
-  border-top:4px solid #ffb3d8;
-  border-right:4px solid #bde3ff;
-  border-bottom:4px solid #e3c8ff;
-  animation: spin 1.2s linear infinite;
-  box-shadow:0 0 12px rgba(255,200,230,.6);
+.ear-left{
+  left: 16px;
+  transform-origin: top center;
+  border-radius: 55% 45% 70% 70%;
+  transform: rotate(-18deg);
+  animation: floppyLeft 2.2s ease-in-out infinite;
 }
 
-@keyframes spin{
-  to{ transform:rotate(360deg); }
+.ear-right{
+  right: 16px;
+  transform-origin: top center;
+  border-radius: 45% 55% 70% 70%;
+  transform: rotate(18deg);
+  animation: floppyRight 2.2s ease-in-out infinite;
+}
+
+@keyframes floppyLeft{
+  0%, 100% { transform: rotate(-18deg) translateY(0); }
+  25%      { transform: rotate(-28deg) translateY(2px); }
+  50%      { transform: rotate(-12deg) translateY(0); }
+  75%      { transform: rotate(-24deg) translateY(1px); }
+}
+
+@keyframes floppyRight{
+  0%, 100% { transform: rotate(18deg) translateY(0); }
+  25%      { transform: rotate(28deg) translateY(2px); }
+  50%      { transform: rotate(12deg) translateY(0); }
+  75%      { transform: rotate(24deg) translateY(1px); }
+}
+
+@keyframes puppyFloat{
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
 }
 
 .msg{
@@ -145,11 +194,14 @@ body{
   <div class="subtitle">SYSTEM: gently restoring</div>
 
   <div class="status">
-    please wait… <span>new stuffs coming</span>
+    please wait… <span>safe mode loading</span>
   </div>
 
-  <!-- 🌸 NEW LOADER -->
-  <div class="loader"></div>
+  <div class="puppy-loader">
+    <div class="puppy-ear ear-left"></div>
+    <div class="puppy-ear ear-right"></div>
+    <img src="/images/puppyboypfp.png" alt="middaypuppy puppy avatar" class="puppy-face" />
+  </div>
 
   <div class="msg" id="msg">
     restoring affection module ♡
