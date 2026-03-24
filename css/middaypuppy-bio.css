@@ -534,7 +534,6 @@ body::before {
 .sao-toast-progress {
   height: 4px;
   background: linear-gradient(90deg, var(--pink), var(--cyan), var(--violet));
-  animation: toastProgress 7s linear forwards;
   transform-origin: left;
 }
 
