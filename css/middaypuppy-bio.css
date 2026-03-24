@@ -19,9 +19,10 @@ body{
   color:var(--text);
 
   background:
-    radial-gradient(circle at 20% 20%, var(--pink), transparent),
-    radial-gradient(circle at 80% 60%, var(--peach), transparent),
-    var(--bg);
+    linear-gradient(rgba(252,251,244,0.7), rgba(252,251,244,0.7)),
+    url("/images/middaypuppycrate.png") center / cover no-repeat;
+
+  background-attachment:fixed;
 
   min-height:100vh;
   display:flex;
