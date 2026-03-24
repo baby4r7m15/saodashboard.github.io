@@ -44,7 +44,7 @@
 
     "name": "MiddayPuppy.exe",
 
-    "metaHtml": "Build: <b>daylight</b> • Level: <b>21</b> • Status: <b>warm and safe</b>",
+    "metaHtml": "Build: <b>daylight</b> • Level: <b>21</b> • Status: <b>warm and fluffy</b>",
 
     "bars": [
       {
@@ -83,7 +83,6 @@
     "vibes": [
       "☁ soft",
       "☀ warm",
-      "♡ safe",
       "🫧 calm",
       "🐾 gentle"
     ]
@@ -98,6 +97,11 @@
         "name": "sleep.exe",
         "percent": 82,
         "subtext": "rested + cozy"
+      },
+      {
+        "name": "gaming.xml",
+        "percent": 50,
+        "subtext": "fun + casual"
       }
     ]
   },
@@ -131,12 +135,12 @@
 
       { "type": "gap" },
 
-      { "time": "12:05:00", "message": "status: online • safe • warm" }
+      { "time": "12:05:00", "message": "status: online" }
     ]
   },
 
   "toast": {
     "header": "SYSTEM",
-    "line": "middaypuppy.exe initialized • warmth restored • you are safe here"
+    "line": "middaypuppy.exe initialized"
   }
 }
