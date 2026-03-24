@@ -34,6 +34,57 @@ body{
   padding:20px;
 }
 
+/* WRAPPER (so header + card align perfectly) */
+.wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* HEADER CARD */
+.header-card{
+  width:1000px;
+  margin-bottom:18px;
+
+  background:white;
+  border-radius:24px;
+  padding:18px 22px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  box-shadow:0 15px 40px rgba(255,180,220,.25);
+}
+
+.header-title{
+  font-weight:800;
+  font-size:18px;
+  color:var(--accent);
+}
+
+.header-sub{
+  font-size:12px;
+  color:#9a7d8c;
+}
+
+.header-right{
+  display:flex;
+  gap:10px;
+}
+
+.nav-pill{
+  padding:6px 12px;
+  border-radius:999px;
+  background:#FCFBF4;
+  font-size:12px;
+}
+
+.nav-pill.active{
+  background:var(--pink);
+  font-weight:600;
+}
+
 /* MAIN CARD */
 .card{
   width:1000px;
@@ -131,58 +182,77 @@ body{
 
 <body>
 
-<div class="card">
+<div class="wrapper">
 
-  <!-- LEFT -->
-  <div class="profile">
-    <img src="/images/puppyboypfp.png">
-    <div class="name">MiddayPuppy.exe</div>
-    <div class="meta">warm • soft • safe</div>
+  <!-- HEADER -->
+  <div class="header-card">
+    <div>
+      <div class="header-title">middaypuppy.exe</div>
+      <div class="header-sub">sunlight loaded • heart warm • safe mode active</div>
+    </div>
+
+    <div class="header-right">
+      <div class="nav-pill active">bio</div>
+      <div class="nav-pill">vibes</div>
+      <div class="nav-pill">moods</div>
+    </div>
   </div>
 
-  <!-- RIGHT -->
-  <div class="content">
+  <!-- MAIN CARD -->
+  <div class="card">
 
-    <!-- BIO -->
-    <div class="section full">
-      <div class="title">BIO / INTRO</div>
-      <div class="list">
-        <div class="item">middaypuppy.exe has logged in</div>
-        <div class="item">loves warm sunlight and soft spaces</div>
-        <div class="item">just here to feel safe and cozy</div>
-      </div>
+    <!-- LEFT -->
+    <div class="profile">
+      <img src="/images/puppyboypfp.png">
+      <div class="name">MiddayPuppy.exe</div>
+      <div class="meta">warm • soft • safe</div>
     </div>
 
-    <!-- OUTFIT -->
-    <div class="section">
-      <div class="title">OUTFIT</div>
-      <div class="list">
-        <div class="item">oversized pastel hoodie</div>
-        <div class="item">soft shorts</div>
-        <div class="item">fluffy socks</div>
-      </div>
-    </div>
+    <!-- RIGHT -->
+    <div class="content">
 
-    <!-- HOBBIES -->
-    <div class="section">
-      <div class="title">HOBBIES</div>
-      <div class="list">
-        <div class="item">gaming</div>
-        <div class="item">listening to music</div>
-        <div class="item">daydreaming</div>
+      <!-- BIO -->
+      <div class="section full">
+        <div class="title">BIO / INTRO</div>
+        <div class="list">
+          <div class="item">middaypuppy.exe has logged in</div>
+          <div class="item">loves warm sunlight and soft spaces</div>
+          <div class="item">just here to feel safe and cozy</div>
+        </div>
       </div>
-    </div>
 
-    <!-- MOODS -->
-    <div class="section full">
-      <div class="title">MOODS</div>
-      <div class="tags">
-        <div class="tag">☁ soft</div>
-        <div class="tag">☀ warm</div>
-        <div class="tag">♡ safe</div>
-        <div class="tag">🫧 calm</div>
-        <div class="tag">🐾 gentle</div>
+      <!-- OUTFIT -->
+      <div class="section">
+        <div class="title">OUTFIT</div>
+        <div class="list">
+          <div class="item">oversized pastel hoodie</div>
+          <div class="item">soft shorts</div>
+          <div class="item">fluffy socks</div>
+        </div>
       </div>
+
+      <!-- HOBBIES -->
+      <div class="section">
+        <div class="title">HOBBIES</div>
+        <div class="list">
+          <div class="item">gaming</div>
+          <div class="item">listening to music</div>
+          <div class="item">daydreaming</div>
+        </div>
+      </div>
+
+      <!-- MOODS -->
+      <div class="section full">
+        <div class="title">MOODS</div>
+        <div class="tags">
+          <div class="tag">☁ soft</div>
+          <div class="tag">☀ warm</div>
+          <div class="tag">♡ safe</div>
+          <div class="tag">🫧 calm</div>
+          <div class="tag">🐾 gentle</div>
+        </div>
+      </div>
+
     </div>
 
   </div>
