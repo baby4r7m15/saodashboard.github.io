@@ -77,9 +77,11 @@
 
 </main>
 
+<!-- TOAST -->
 <div class="sao-toast" id="saoToast">
   <div class="sao-toast-head">
     <span id="toastHeader"></span>
+    <button class="sao-toast-close">✕</button>
   </div>
 
   <div class="sao-toast-body">
@@ -103,23 +105,55 @@ function setHTML(id,val){
   if(el) el.innerHTML=val||"";
 }
 
-/* FIXED RENDERERS */
-
+/* RENDER */
 function renderList(id,arr){
   const el=document.getElementById(id);
   if(!el) return;
   el.innerHTML=(arr||[]).map(i=>`<li>${i}</li>`).join("");
 }
 
-/* 🔥 FIXED BARS (THIS WAS BROKEN) */
+/* FIXED BARS */
 function renderBars(arr){
   const el=document.getElementById("profileBars");
   if(!el) return;
 
   el.innerHTML=(arr||[]).map(b=>`
     <div class="bar">
-      <div class="bar-fill ${b.fillClass}" style="width:${b.percent}%"></div>
+      <div class="bar-fill ${b.fillClass||""}" style="width:${b.percent}%"></div>
     </div>
+  `).join("");
+}
+
+/* STATS (FIXED) */
+function renderStats(arr){
+  const el=document.getElementById("statsCards");
+  if(!el) return;
+
+  el.innerHTML=(arr||[]).map(c=>`
+    <div class="stat-card">
+      <div class="stat-label">${c.label}</div>
+      <div class="stat-value">${c.value}</div>
+    </div>
+  `).join("");
+}
+
+/* SYSTEM LOG (FIXED) */
+function renderSystem(arr){
+  const el=document.getElementById("systemLog");
+  if(!el) return;
+
+  el.innerHTML=(arr||[]).map(line=>`
+    <div class="terminal-line">${line}</div>
+  `).join("");
+}
+
+/* VIBES */
+function renderVibes(arr){
+  const el=document.getElementById("vibesTags");
+  if(!el) return;
+
+  el.innerHTML=(arr||[]).map(v=>`
+    <span class="tag">${v}</span>
   `).join("");
 }
 
@@ -156,6 +190,8 @@ function startToast(){
 async function init(){
   try{
     const res=await fetch(DATA_URL);
+    if(!res.ok) throw new Error("JSON not found");
+
     const data=await res.json();
 
     setText("profileName",data.profile?.name);
@@ -164,16 +200,19 @@ async function init(){
     renderBars(data.profile?.bars);
     renderList("loadoutList",data.profile?.loadout);
 
-    /* 🔥 FIXED BIO */
     renderList("bioEntries",data.bio?.entries);
+    renderVibes(data.bio?.vibes);
 
+    renderStats(data.statsPanel?.cards);
     renderList("reportItems",data.statusReport?.items);
+    renderSystem(data.systemLog?.lines);
 
     setText("toastHeader",data.toast?.header);
-    runTyping(data.toast?.line);
+    runTyping(data.toast?.line || "system online...");
   }
   catch(err){
-    console.error(err);
+    console.error("JSON LOAD FAILED:",err);
+    setText("profileName","middaypuppy.exe");
     runTyping("fallback mode...");
   }
 
