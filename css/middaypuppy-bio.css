@@ -408,3 +408,93 @@ body{
       "syslog";
   }
 }
+
+/* ========================= */
+/* TOAST SYSTEM (FIXED) */
+/* ========================= */
+
+.sao-toast{
+  position:fixed;
+  left:24px;
+  bottom:24px;
+  width:420px;
+
+  background:var(--surface-1);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+
+  box-shadow:
+    0 10px 30px var(--shadow),
+    0 0 12px rgba(255,200,230,.15);
+
+  transform:translateY(20px);
+  opacity:0;
+  transition:.3s ease;
+  z-index:9999;
+}
+
+/* SHOW STATE */
+.sao-toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* header */
+.sao-toast-header{
+  font-weight:800;
+  color:#ff8fc4;
+  margin-bottom:6px;
+}
+
+/* typing text */
+.sao-toast-body{
+  font-size:13px;
+  line-height:1.4;
+  color:var(--text);
+}
+
+/* typing caret */
+.caret{
+  display:inline-block;
+  width:6px;
+  margin-left:2px;
+  background:var(--text);
+  animation:blink 1s infinite;
+}
+
+/* progress bar */
+.sao-toast-progress{
+  position:absolute;
+  bottom:0;
+  left:0;
+  height:3px;
+  width:100%;
+
+  background:linear-gradient(90deg,var(--pink),var(--pink2));
+  transform-origin:left;
+}
+
+/* timer animation */
+@keyframes toastTimer{
+  from{transform:scaleX(1);}
+  to{transform:scaleX(0);}
+}
+
+/* close button */
+.sao-toast-close{
+  position:absolute;
+  top:10px;
+  right:10px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* caret blink */
+@keyframes blink{
+  0%,100%{opacity:1;}
+  50%{opacity:0;}
+}
