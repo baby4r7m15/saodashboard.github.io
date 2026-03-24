@@ -4,175 +4,137 @@
   <meta charset="UTF-8" />
   <title>middaypuppy.exe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="/css/middaypuppy-bio.css" />
+
+  <!-- ICON -->
   <link rel="icon" type="image/png" sizes="512x512" href="/images/puppyboypfp.png" />
   <link rel="apple-touch-icon" href="/images/puppyboypfp.png" />
-  <meta name="theme-color" content="#fff0f7" id="themeColorMeta" />
+
+  <meta name="theme-color" content="#fff0f7" />
 </head>
 
 <body>
 
-  <div class="overlay overlay-rain"></div>
-  <div class="overlay overlay-particles"></div>
-  <div class="overlay overlay-vignette"></div>
+<div class="overlay overlay-particles"></div>
+<div class="overlay overlay-vignette"></div>
 
-  <header class="hud-top">
-    <div class="hud-brand">
-      <div class="hud-title glitch" id="siteTitle" data-text="middaypuppy.exe">middaypuppy.exe</div>
-      <div class="hud-sub" id="siteSubtitle">SAFE MODE • SUNBEAM STABLE • AFFECTION RESTORED</div>
-    </div>
-
-    <nav class="hud-nav" id="siteNav"></nav>
-    <div class="hud-stats" id="topStats"></div>
-  </header>
-
-  <main class="grid">
-
-    <section class="panel profile">
-      <div class="panel-head">
-        <span id="profilePanelTitle">USER PROFILE</span>
-        <span class="chip" id="profileChip">ONLINE</span>
-      </div>
-
-      <div class="avatar">
-        <img
-          class="avatar-img"
-          id="avatarImg"
-          src="/images/puppyboypfp.png"
-          alt="avatar"
-          onerror="this.style.display='none'; this.parentElement.classList.add('avatar-fallback');"
-        />
-        <div class="avatar-silhouette"></div>
-      </div>
-
-      <h1 class="profile-name" id="profileName"></h1>
-      <p class="profile-meta" id="profileMeta"></p>
-
-      <div class="bars" id="profileBars"></div>
-
-      <div class="subpanel">
-        <div class="subpanel-title">LOADOUT</div>
-        <ul id="loadoutList"></ul>
-      </div>
-    </section>
-
-    <section class="panel bio">
-      <div class="panel-head">
-        <span>BIO LOG</span>
-        <span class="chip">LIVE</span>
-      </div>
-
-      <ul id="bioEntries"></ul>
-
-      <div class="subpanel">
-        <div class="subpanel-title">VIBES</div>
-        <div id="vibesTags"></div>
-      </div>
-    </section>
-
-    <section class="panel stats-panel">
-      <div class="panel-head">
-        <span>Stats</span>
-        <span class="chip">3</span>
-      </div>
-
-      <div id="statsCards"></div>
-    </section>
-
-    <section class="panel report">
-      <div class="panel-head">
-        <span>STATUS REPORT</span>
-        <span class="chip">LAST 24H</span>
-      </div>
-
-      <ul id="reportItems"></ul>
-    </section>
-
-    <section class="panel terminal-panel">
-      <div class="panel-head">
-        <span>SYSTEM LOG</span>
-        <span class="chip">STREAMING</span>
-      </div>
-
-      <div class="terminal" id="systemLog"></div>
-    </section>
-
-  </main>
-
-  <!-- 💖 TOAST -->
-  <div class="sao-toast" id="saoToast">
-    <div class="sao-toast-head">
-      <span id="toastHeader">SYSTEM</span>
-      <button class="sao-toast-close">✕</button>
-    </div>
-
-    <div class="sao-toast-body">
-      <span id="toastType" class="typing"></span>
-    </div>
-
-    <div class="sao-toast-progress"></div>
+<header class="hud-top">
+  <div class="hud-brand">
+    <div class="hud-title glitch" data-text="middaypuppy.exe">middaypuppy.exe</div>
+    <div class="hud-sub">SAFE MODE • SUNBEAM STABLE • AFFECTION RESTORED</div>
   </div>
+
+  <nav class="hud-nav"></nav>
+  <div class="hud-stats"></div>
+</header>
+
+<main class="grid">
+
+  <section class="panel profile">
+    <div class="panel-head">
+      <span>USER PROFILE</span>
+      <span class="chip">ONLINE</span>
+    </div>
+
+    <div class="avatar">
+      <img class="avatar-img" src="/images/puppyboypfp.png" />
+    </div>
+
+    <h1 id="profileName">loading...</h1>
+    <p id="profileMeta"></p>
+
+    <div id="profileBars"></div>
+
+    <ul id="loadoutList"></ul>
+  </section>
+
+  <section class="panel bio">
+    <div class="panel-head">
+      <span>BIO LOG</span>
+    </div>
+
+    <ul id="bioEntries"></ul>
+    <div id="vibesTags"></div>
+  </section>
+
+  <section class="panel stats-panel">
+    <div class="panel-head">
+      <span>Stats</span>
+    </div>
+
+    <div id="statsCards"></div>
+  </section>
+
+  <section class="panel report">
+    <div class="panel-head">
+      <span>STATUS REPORT</span>
+    </div>
+
+    <ul id="reportItems"></ul>
+  </section>
+
+  <section class="panel terminal-panel">
+    <div class="panel-head">
+      <span>SYSTEM LOG</span>
+    </div>
+
+    <div id="systemLog"></div>
+  </section>
+
+</main>
+
+<!-- TOAST -->
+<div class="sao-toast" id="saoToast">
+  <div class="sao-toast-head">
+    <span id="toastHeader">SYSTEM</span>
+    <button class="sao-toast-close">✕</button>
+  </div>
+
+  <div class="sao-toast-body">
+    <span id="toastType" class="typing"></span>
+  </div>
+
+  <div class="sao-toast-progress"></div>
+</div>
 
 <script>
 const DATA_URL = "/data/middaypuppy.json";
 
-/* helpers */
+/* SAFE HELPERS */
 function setText(id,val){
   const el=document.getElementById(id);
-  if(el) el.textContent=val;
+  if(el) el.textContent=val || "";
 }
 
 function setHTML(id,val){
   const el=document.getElementById(id);
-  if(el) el.innerHTML=val;
+  if(el) el.innerHTML=val || "";
 }
 
-/* render */
+/* RENDER */
 function renderList(id,arr){
-  document.getElementById(id).innerHTML =
-    arr.map(i=>`<li>${i}</li>`).join("");
-}
-
-function renderVibes(arr){
-  document.getElementById("vibesTags").innerHTML =
-    arr.map(v=>`<span class="tag">${v}</span>`).join("");
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.innerHTML = (arr||[]).map(i=>`<li>${i}</li>`).join("");
 }
 
 function renderBars(arr){
-  document.getElementById("profileBars").innerHTML =
-    arr.map(b=>`
-      <div class="bar-row">
-        <div class="bar-meta">
-          <span>${b.label}</span>
-          <span>${b.percent}%</span>
-        </div>
-        <div class="bar">
-          <span class="bar-fill ${b.fillClass||""}" style="width:${b.percent}%"></span>
-        </div>
-      </div>
-    `).join("");
+  const el=document.getElementById("profileBars");
+  if(!el) return;
+
+  el.innerHTML = (arr||[]).map(b=>`
+    <div class="bar">
+      <span class="bar-fill" style="width:${b.percent}%"></span>
+    </div>
+  `).join("");
 }
 
-function renderStats(arr){
-  document.getElementById("statsCards").innerHTML =
-    arr.map(c=>`
-      <div class="stat-card">
-        <div>${c.name}</div>
-        <div>${c.percent}%</div>
-      </div>
-    `).join("");
-}
-
-function renderSystem(arr){
-  document.getElementById("systemLog").innerHTML =
-    arr.map(l=>`<div>${l.message||""}</div>`).join("");
-}
-
-/* typing */
-function runTypingToast(text){
+/* TOAST */
+function runTyping(text){
   const el=document.getElementById("toastType");
   let i=0;
-  el.textContent="";
 
   function type(){
     if(i<text.length){
@@ -184,67 +146,51 @@ function runTypingToast(text){
   type();
 }
 
-/* 🔥 FIXED PROGRESS BAR */
-function setupToastTimer(){
+function startToast(){
   const toast=document.getElementById("saoToast");
-  const progress=toast.querySelector(".sao-toast-progress");
-  const btn=toast.querySelector(".sao-toast-close");
+  const bar=toast.querySelector(".sao-toast-progress");
 
-  const DURATION=8000;
+  toast.classList.add("show");
 
-  requestAnimationFrame(()=>toast.classList.add("show"));
+  bar.style.animation="none";
+  bar.offsetHeight;
+  bar.style.animation="toastTimer 8s linear forwards";
 
-  if(progress){
-    progress.style.animation="none";
-    progress.offsetHeight; // force reset
-    progress.style.animation=`toastTimer ${DURATION/1000}s linear forwards`;
-  }
-
-  const t=setTimeout(()=>{
-    toast.classList.remove("show");
-    setTimeout(()=>toast.remove(),220);
-  },DURATION);
-
-  btn.onclick=()=>{
-    clearTimeout(t);
-    progress.style.animation="none";
-    toast.classList.remove("show");
-    setTimeout(()=>toast.remove(),220);
-  };
+  setTimeout(()=>toast.remove(),8000);
 }
 
-/* init */
+/* INIT */
 async function init(){
-  const res=await fetch(DATA_URL);
-  const data=await res.json();
+  try{
+    const res = await fetch(DATA_URL);
 
-  setText("profileName",data.profile.name);
-  setHTML("profileMeta",data.profile.metaHtml);
+    if(!res.ok) throw new Error("JSON not found");
 
-  renderBars(data.profile.bars);
-  renderList("loadoutList",data.profile.loadout);
+    const data = await res.json();
 
-  renderList("bioEntries",data.bio.entries.map(e=>e.text));
-  renderVibes(data.bio.vibes);
+    setText("profileName",data.profile?.name);
+    setHTML("profileMeta",data.profile?.metaHtml);
 
-  renderStats(data.statsPanel.cards);
-  renderList("reportItems",data.statusReport.items);
-  renderSystem(data.systemLog.lines);
+    renderBars(data.profile?.bars);
+    renderList("loadoutList",data.profile?.loadout);
+    renderList("bioEntries",data.bio?.entries?.map(e=>e.text));
+    renderList("reportItems",data.statusReport?.items);
 
-  setText("toastHeader",data.toast.header);
+    setText("toastHeader",data.toast?.header);
+    runTyping(data.toast?.line || "system online...");
+  }
+  catch(err){
+    console.error("JSON LOAD FAILED:", err);
 
-  const toast=document.getElementById("saoToast");
-  toast.classList.remove("love","system");
-
-  if(data.toast.type==="love"){
-    toast.classList.add("love");
+    // fallback so page still works
+    setText("profileName","middaypuppy.exe");
+    runTyping("failed to load data.json... but i'm still here ♡");
   }
 
-  runTypingToast(data.toast.line);
-  setupToastTimer();
+  startToast();
 }
 
-init();
+document.addEventListener("DOMContentLoaded", init);
 </script>
 
 </body>
