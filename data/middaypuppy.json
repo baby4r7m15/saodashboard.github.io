@@ -28,7 +28,6 @@
     "title": "middaypuppy.exe",
     "subtitle": "SAFE MODE • SUNBEAM STABLE • AFFECTION RESTORED",
     "nav": [
-      { "label": "Home", "href": "/middaypuppy", "active": false }
     ],
     "stats": [
       { "label": "Mood", "value": "bright" },
@@ -55,22 +54,20 @@
       "oversized pastel hoodie",
       "cloud-soft sleeves",
       "sparkle aura",
-      "safe-mode heart"
+      "cute puppy ears"
     ]
   },
   "bio": {
     "panelTitle": "BIO LOG",
     "panelChip": "LIVE",
     "entries": [
-      "restored affection module ♡",
-      "learning to stay instead of disappear",
       "collecting soft things and kinder days",
       "running on pink light and warm replies"
     ],
     "vibesTitle": "VIBES",
     "vibes": [
       "pastel pink",
-      "window sunlight",
+      "cute stuffs",
       "puppyboy energy",
       "wholesome",
       "clingy in a cute way",
@@ -109,6 +106,6 @@
   },
   "toast": {
     "header": "SYSTEM",
-    "line": "safe mode enabled ♡"
+    "line": "System: Restored ♡"
   }
 }
