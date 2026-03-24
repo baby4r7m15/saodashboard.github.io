@@ -105,7 +105,7 @@
     ]
   },
   "toast": {
-    "header": "SYSTEM",
-    "line": "System: Restored ♡"
-  }
+  "type": "love",
+  "header": "love.exe",
+  "line": "love.exe initialized… heartbeat unstable • missing you • please stay"
 }
