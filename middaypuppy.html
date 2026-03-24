@@ -7,9 +7,7 @@
 
   <link rel="stylesheet" href="/css/middaypuppy-bio.css" />
 
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/puppyboypfp.png" />
-  <link rel="apple-touch-icon" href="/images/puppyboypfp.png" />
-
+  <link rel="icon" type="image/png" href="/images/puppyboypfp.png" />
   <meta name="theme-color" content="#fff0f7" />
 </head>
 
@@ -20,12 +18,9 @@
 
 <header class="hud-top">
   <div class="hud-brand">
-    <div class="hud-title glitch" data-text="middaypuppy.exe">middaypuppy.exe</div>
+    <div class="hud-title">middaypuppy.exe</div>
     <div class="hud-sub">SAFE MODE • SUNBEAM STABLE • AFFECTION RESTORED</div>
   </div>
-
-  <nav class="hud-nav"></nav>
-  <div class="hud-stats"></div>
 </header>
 
 <main class="grid">
@@ -40,11 +35,10 @@
       <img class="avatar-img" src="/images/puppyboypfp.png" />
     </div>
 
-    <h1 id="profileName">loading...</h1>
+    <h1 id="profileName"></h1>
     <p id="profileMeta"></p>
 
     <div id="profileBars"></div>
-
     <ul id="loadoutList"></ul>
   </section>
 
@@ -83,11 +77,9 @@
 
 </main>
 
-<!-- TOAST -->
 <div class="sao-toast" id="saoToast">
   <div class="sao-toast-head">
-    <span id="toastHeader">SYSTEM</span>
-    <button class="sao-toast-close">✕</button>
+    <span id="toastHeader"></span>
   </div>
 
   <div class="sao-toast-body">
@@ -100,70 +92,42 @@
 <script>
 const DATA_URL = "/data/middaypuppy.json";
 
-/* helpers */
+/* HELPERS */
 function setText(id,val){
   const el=document.getElementById(id);
-  if(el) el.textContent=val || "";
+  if(el) el.textContent=val||"";
 }
 
 function setHTML(id,val){
   const el=document.getElementById(id);
-  if(el) el.innerHTML=val || "";
+  if(el) el.innerHTML=val||"";
 }
 
-/* render */
+/* FIXED RENDERERS */
+
 function renderList(id,arr){
   const el=document.getElementById(id);
   if(!el) return;
-  el.innerHTML = (arr||[]).map(i=>`<li>${i}</li>`).join("");
+  el.innerHTML=(arr||[]).map(i=>`<li>${i}</li>`).join("");
 }
 
+/* 🔥 FIXED BARS (THIS WAS BROKEN) */
 function renderBars(arr){
   const el=document.getElementById("profileBars");
   if(!el) return;
 
-  el.innerHTML = (arr||[]).map(b=>`
+  el.innerHTML=(arr||[]).map(b=>`
     <div class="bar">
-      <span class="bar-fill ${b.fillClass||""}" style="width:${b.percent}%"></span>
+      <div class="bar-fill ${b.fillClass}" style="width:${b.percent}%"></div>
     </div>
   `).join("");
 }
 
-function renderStats(arr){
-  const el=document.getElementById("statsCards");
-  if(!el) return;
-
-  el.innerHTML = (arr||[]).map(c=>`
-    <div class="stat-card">
-      <div class="stat-label">${c.label}</div>
-      <div class="stat-value">${c.value}</div>
-    </div>
-  `).join("");
-}
-
-function renderVibes(arr){
-  const el=document.getElementById("vibesTags");
-  if(!el) return;
-
-  el.innerHTML = (arr||[]).map(v=>`
-    <span class="tag">${v}</span>
-  `).join("");
-}
-
-function renderSystem(arr){
-  const el=document.getElementById("systemLog");
-  if(!el) return;
-
-  el.innerHTML = (arr||[]).map(line=>`
-    <div class="terminal-line">${typeof line === "string" ? line : line.message}</div>
-  `).join("");
-}
-
-/* typing */
+/* TOAST */
 function runTyping(text){
   const el=document.getElementById("toastType");
-  let i=0;
   el.textContent="";
+  let i=0;
 
   function type(){
     if(i<text.length){
@@ -175,7 +139,6 @@ function runTyping(text){
   type();
 }
 
-/* toast */
 function startToast(){
   const toast=document.getElementById("saoToast");
   const bar=toast.querySelector(".sao-toast-progress");
@@ -189,13 +152,11 @@ function startToast(){
   setTimeout(()=>toast.remove(),8000);
 }
 
-/* init */
+/* INIT */
 async function init(){
   try{
-    const res = await fetch(DATA_URL);
-    if(!res.ok) throw new Error("JSON not found");
-
-    const data = await res.json();
+    const res=await fetch(DATA_URL);
+    const data=await res.json();
 
     setText("profileName",data.profile?.name);
     setHTML("profileMeta",data.profile?.metaHtml);
@@ -203,28 +164,23 @@ async function init(){
     renderBars(data.profile?.bars);
     renderList("loadoutList",data.profile?.loadout);
 
-    // ✅ FIXED: supports BOTH formats
-    const bioEntries = data.bio?.entries?.map(e => typeof e === "string" ? e : e.text);
-    renderList("bioEntries", bioEntries);
+    /* 🔥 FIXED BIO */
+    renderList("bioEntries",data.bio?.entries);
 
-    renderVibes(data.bio?.vibes);
-    renderStats(data.statsPanel?.cards);
     renderList("reportItems",data.statusReport?.items);
-    renderSystem(data.systemLog?.lines);
 
     setText("toastHeader",data.toast?.header);
-    runTyping(data.toast?.line || "system online...");
+    runTyping(data.toast?.line);
   }
   catch(err){
-    console.error("JSON LOAD FAILED:", err);
-    setText("profileName","middaypuppy.exe");
-    runTyping("failed to load data.json... but i'm still here ♡");
+    console.error(err);
+    runTyping("fallback mode...");
   }
 
   startToast();
 }
 
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded",init);
 </script>
 
 </body>
