@@ -185,11 +185,9 @@ body{
 .panel{
   position: relative;
   overflow: hidden;
-  background: rgba(7, 9, 18, 0.78);
-  border: 1px solid rgba(91, 108, 255, 0.12);
-  box-shadow:
-    0 0 14px rgba(71, 216, 255, 0.06),
-    inset 0 0 18px rgba(165, 108, 255, 0.04);
+  background: rgba(255, 250, 253, 0.85); /* ✨ creamy white */
+  border: 1px solid rgba(255, 200, 230, 0.3);
+  box-shadow: 0 0 25px rgba(255,180,220,.25);
   backdrop-filter: blur(12px);
   padding: 16px;
   border-radius: 18px;
