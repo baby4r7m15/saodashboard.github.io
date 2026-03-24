@@ -526,9 +526,21 @@ body::before {
   font-weight: 700;
 }
 
-.toast-cursor {
+/* ✨ REAL TYPING CURSOR */
+.typing::after {
+  content: "▍";
+  margin-left: 4px;
+
   color: var(--pink);
+  text-shadow: 0 0 8px rgba(255, 120, 180, 0.8);
+
   animation: blink 1s step-end infinite;
+}
+
+/* 💖 love.exe cursor override */
+.sao-toast.love .typing::after {
+  color: #ff6fb5;
+  text-shadow: 0 0 10px rgba(255, 120, 180, 0.9);
 }
 
 .sao-toast-progress {
@@ -626,14 +638,13 @@ body::before {
   text-shadow: 0 0 8px rgba(255, 120, 180, 0.8);
 }
 
-/* progress bar becomes LOVE themed */
 .sao-toast.love .sao-toast-progress {
-  background: linear-gradient(
-    90deg,
-    #ff6fb5,
-    #ffc1e6,
-    #ffd9f2
-  );
+  background: #ffb6c1; /* soft pink */
+
+  box-shadow:
+    0 0 10px rgba(255, 182, 193, 0.6),
+    0 0 18px rgba(255, 182, 193, 0.4);
+}
 
   box-shadow: 0 0 12px rgba(255, 120, 180, 0.5);
 }
