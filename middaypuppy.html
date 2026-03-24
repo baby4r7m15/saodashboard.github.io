@@ -7,17 +7,18 @@
 
 <link rel="stylesheet" href="/css/middaypuppy-bio.css" />
 <link rel="icon" href="/images/puppyboypfp.png" />
-<meta name="theme-color" content="#fff3f8" />
-
+<meta name="theme-color" content="#fff3f8" id="themeColorMeta" />
 </head>
 
 <body>
 
-<div class="overlay overlay-particles"></div>
+<!-- OVERLAYS (MIDNIGHT SYSTEM) -->
+<div class="overlay overlay-particles" aria-hidden="true"></div>
+<div class="overlay overlay-vignette" aria-hidden="true"></div>
 
 <header class="hud-top">
   <div class="hud-brand">
-    <div class="hud-title" id="siteTitle">middaypuppy.exe</div>
+    <div class="hud-title glitch" id="siteTitle" data-text="middaypuppy.exe">middaypuppy.exe</div>
     <div class="hud-sub" id="siteSubtitle"></div>
   </div>
 
@@ -27,14 +28,19 @@
 
 <main class="grid">
 
+<!-- PROFILE -->
 <section class="panel profile">
   <div class="panel-head">
-    <span>USER PROFILE</span>
-    <span class="chip">ONLINE</span>
+    <span id="profilePanelTitle">USER PROFILE</span>
+    <span class="chip" id="profileChip">ONLINE</span>
   </div>
 
   <div class="avatar">
-    <img id="avatarImg" class="avatar-img" src="/images/puppyboypfp.png" />
+    <img id="avatarImg" class="avatar-img"
+      src="/images/puppyboypfp.png"
+      onerror="this.style.display='none'; this.parentElement.classList.add('avatar-fallback');"
+    />
+    <div class="avatar-silhouette"></div>
   </div>
 
   <div class="profile-name" id="profileName"></div>
@@ -44,133 +50,130 @@
 
   <div class="divider"></div>
 
-  <div class="mini-title">LOADOUT</div>
+  <div class="mini-title" id="loadoutTitle">LOADOUT</div>
   <ul class="list" id="loadoutList"></ul>
 </section>
 
+<!-- BIO -->
 <section class="panel quest">
   <div class="panel-head">
-    <span>BIO LOG</span>
-    <span class="chip pink">LIVE</span>
+    <span id="bioPanelTitle">BIO LOG</span>
+    <span class="chip pink" id="bioChip">LIVE</span>
   </div>
 
   <ul class="quests" id="bioLogList"></ul>
 
   <div class="divider"></div>
 
-  <div class="mini-title">VIBES</div>
+  <div class="mini-title" id="vibesTitle">VIBES</div>
   <div class="chips-row" id="vibesList"></div>
 </section>
 
+<!-- STATS (MIDNIGHT STRUCTURE RESTORED) -->
 <section class="panel party">
   <div class="panel-head">
-    <span>Stats</span>
-    <span class="chip pink">soft</span>
+    <span id="statsPanelTitle">Stats</span>
+    <span class="chip pink" id="statsPanelChip">soft</span>
   </div>
 
   <div id="statsCards"></div>
 </section>
 
+<!-- STATUS -->
 <section class="panel battle">
   <div class="panel-head">
-    <span>STATUS REPORT</span>
-    <span class="chip">CURRENT</span>
+    <span id="statusPanelTitle">STATUS REPORT</span>
+    <span class="chip" id="statusPanelChip">CURRENT</span>
   </div>
 
   <ul class="list" id="statusReportList"></ul>
 </section>
 
+<!-- SYSTEM LOG -->
 <section class="panel syslog">
   <div class="panel-head">
-    <span>SYSTEM LOG</span>
-    <span class="chip pink">RUNNING</span>
+    <span id="systemLogTitle">SYSTEM LOG</span>
+    <span class="chip pink" id="systemLogChip">RUNNING</span>
   </div>
 
-  <div class="terminal" id="systemLogLines"></div>
+  <div class="terminal" id="systemLogLines" aria-label="System log"></div>
 </section>
 
 </main>
 
-<!-- TOAST -->
+<!-- TOAST (MIDNIGHT EXACT) -->
 <div id="toast" class="sao-toast">
-  <div class="sao-toast-header">SYSTEM</div>
+  <div class="sao-toast-header" id="toastHeader">SYSTEM</div>
 
   <div class="sao-toast-body">
-    <span id="toastType"></span><span class="caret"></span>
+    <span id="toastType"></span><span class="caret">▍</span>
   </div>
 
+  <button class="sao-toast-close">✕</button>
   <div class="sao-toast-progress"></div>
-
-  <button class="sao-toast-close">×</button>
 </div>
 
-  <script>
+<script>
 const DATA_URL = "/data/middaypuppy.json";
 
-/* ------------------ THEME ------------------ */
-function applyTheme(theme){
-  const root = document.documentElement;
-  Object.entries(theme).forEach(([k,v])=>{
-    root.style.setProperty(`--${k}`, v);
-  });
-
-  const meta = document.querySelector("meta[name='theme-color']");
-  if(meta && theme.themeColor){
-    meta.setAttribute("content", theme.themeColor);
-  }
-}
-
-/* ------------------ HELPERS ------------------ */
+/* HELPERS */
 function setText(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
 function setHTML(id,v){const el=document.getElementById(id);if(el)el.innerHTML=v;}
 
-/* ------------------ HEADER ------------------ */
+/* THEME */
+function applyTheme(theme){
+  const root=document.documentElement;
+  Object.entries(theme).forEach(([k,v])=>{
+    root.style.setProperty(`--${k}`,v);
+  });
+
+  const meta=document.getElementById("themeColorMeta");
+  if(meta && theme.themeColor){
+    meta.setAttribute("content",theme.themeColor);
+  }
+}
+
+/* NAV */
 function renderNav(nav){
   const el=document.getElementById("siteNav");
   el.innerHTML="";
   nav.forEach(n=>{
-    el.innerHTML += `
-      <a class="hud-link ${n.active?"active":""}" href="${n.href}">
-        ${n.label}
-      </a>`;
+    el.innerHTML+=`<a class="hud-link ${n.active?"active":""}" href="${n.href}">${n.label}</a>`;
   });
 }
 
+/* STATS */
 function renderTopStats(stats){
   const el=document.getElementById("topStats");
   el.innerHTML="";
   stats.forEach(s=>{
-    el.innerHTML += `<div class="stat">${s.label}: <b>${s.value}</b></div>`;
+    el.innerHTML+=`<div class="stat">${s.label} <b>${s.value}</b></div>`;
   });
 }
 
-/* ------------------ PROFILE ------------------ */
+/* PROFILE BARS */
 function renderBars(bars){
   const el=document.getElementById("profileBars");
   el.innerHTML="";
-
   bars.forEach((b,i)=>{
     const wrap=document.createElement("div");
     wrap.className="bar-wrap";
 
     wrap.innerHTML=`
       <div class="bar-label">${b.label}</div>
-      <div class="bar">
-        <div class="fill" style="width:0%"></div>
-      </div>
+      <div class="bar"><div class="fill" style="width:0%"></div></div>
       <div class="bar-value">${b.value}</div>
     `;
 
     el.appendChild(wrap);
 
-    /* animate fill */
     setTimeout(()=>{
-      wrap.querySelector(".fill").style.width = b.percent + "%";
-    }, 150 + i*120);
+      wrap.querySelector(".fill").style.width=b.percent+"%";
+    },120+i*100);
   });
 }
 
-/* ------------------ LISTS ------------------ */
+/* LIST */
 function renderList(id,items){
   const el=document.getElementById(id);
   el.innerHTML="";
@@ -181,11 +184,12 @@ function renderList(id,items){
   });
 }
 
+/* BIO */
 function renderBio(entries){
   const el=document.getElementById("bioLogList");
   el.innerHTML="";
   entries.forEach(e=>{
-    el.innerHTML += `
+    el.innerHTML+=`
       <li>
         <span class="q-dot"></span>
         ${e.text}
@@ -194,40 +198,39 @@ function renderBio(entries){
   });
 }
 
+/* VIBES */
 function renderVibes(vibes){
   const el=document.getElementById("vibesList");
   el.innerHTML="";
   vibes.forEach(v=>{
-    el.innerHTML += `<span class="soft-chip">${v}</span>`;
+    el.innerHTML+=`<span class="soft-chip">${v}</span>`;
   });
 }
 
-/* ------------------ STATS ------------------ */
+/* STATS CARDS (MIDNIGHT STYLE) */
 function renderStats(cards){
   const el=document.getElementById("statsCards");
   el.innerHTML="";
-  cards.forEach(c=>{
-    el.innerHTML += `
+  cards.forEach((c,i)=>{
+    el.innerHTML+=`
       <div class="member">
-        <div class="m-name">${c.name}</div>
-        <div class="m-bar">
-          <div class="m-fill" style="width:${c.percent}%"></div>
+        <div class="pfp pfp${i+1}"></div>
+        <div>
+          <div class="m-name">${c.name} <span class="lvl">${c.level}</span></div>
+          <div class="m-bar"><div class="m-fill" style="width:${c.percent}%"></div></div>
+          <div class="m-sub">${c.subtext}</div>
         </div>
-        <div class="m-sub">${c.subtext}</div>
       </div>`;
   });
 }
 
-/* ------------------ LOG ------------------ */
+/* LOG */
 function renderLog(lines){
   const el=document.getElementById("systemLogLines");
   el.innerHTML="";
   lines.forEach(l=>{
-    if(l.type==="gap"){
-      el.innerHTML += `<div class="term-gap"></div>`;
-      return;
-    }
-    el.innerHTML += `
+    if(l.type==="gap"){el.innerHTML+=`<div class="term-gap"></div>`;return;}
+    el.innerHTML+=`
       <div class="term-line">
         <span class="term-time">${l.time}</span>
         ${l.message}
@@ -235,92 +238,76 @@ function renderLog(lines){
   });
 }
 
-/* ------------------ TOAST ------------------ */
+/* TOAST */
 function runTypingToast(line){
   const el=document.getElementById("toastType");
   let i=0;
   function type(){
     el.textContent=line.slice(0,i++);
-    if(i<=line.length) setTimeout(type,18);
+    if(i<=line.length)setTimeout(type,20);
   }
   type();
 }
 
 function setupToast(){
-  const toast = document.getElementById("toast");
-  if(!toast) return;
+  const toast=document.getElementById("toast");
+  const close=toast.querySelector(".sao-toast-close");
+  const progress=toast.querySelector(".sao-toast-progress");
 
-  const close = toast.querySelector(".sao-toast-close");
-  const progress = toast.querySelector(".sao-toast-progress");
+  requestAnimationFrame(()=>toast.classList.add("show"));
 
-  /* ✅ SHOW TOAST */
-  requestAnimationFrame(() => {
-    toast.classList.add("show");
-  });
-
-  /* ✅ SAFE PROGRESS (won’t crash if missing) */
   if(progress){
-    progress.style.animation = "toastTimer 8s linear forwards";
+    progress.style.animation="toastTimer 8s linear forwards";
   }
 
-  /* ✅ AUTO CLOSE */
-  const timer = setTimeout(()=>{
+  const timer=setTimeout(()=>{
     toast.classList.remove("show");
-    setTimeout(()=>toast.remove(),300);
+    setTimeout(()=>toast.remove(),250);
   },8000);
 
-  /* ✅ CLOSE BUTTON FIX */
-  if(close){
-    close.onclick = () => {
-      clearTimeout(timer);
-      toast.classList.remove("show");
-      setTimeout(()=>toast.remove(),300);
-    };
-  }
+  close.onclick=()=>{
+    clearTimeout(timer);
+    toast.classList.remove("show");
+    setTimeout(()=>toast.remove(),250);
+  };
 }
 
-/* ------------------ INIT ------------------ */
+/* LOAD */
 fetch(DATA_URL).then(r=>r.json()).then(data=>{
 
-  /* THEME */
-  if(data.theme) applyTheme(data.theme);
+  applyTheme(data.theme);
 
-  /* HEADER */
-  setText("siteTitle",data.header.title);
+  const title=document.getElementById("siteTitle");
+  title.textContent=data.header.title;
+  title.setAttribute("data-text",data.header.title);
+
   setText("siteSubtitle",data.header.subtitle);
   renderNav(data.header.nav);
   renderTopStats(data.header.stats);
 
-  /* PROFILE */
   setText("profileName",data.profile.name);
   setHTML("profileMeta",data.profile.metaHtml);
 
-  if(data.profile.avatar?.src){
-    document.getElementById("avatarImg").src = data.profile.avatar.src;
-  }
+  document.getElementById("avatarImg").src=data.profile.avatar.src;
 
   renderBars(data.profile.bars);
   renderList("loadoutList",data.profile.loadout);
 
-  /* BIO */
   renderBio(data.bio.entries);
   renderVibes(data.bio.vibes);
 
-  /* STATS */
   renderStats(data.statsPanel.cards);
 
-  /* STATUS */
   renderList("statusReportList",data.statusReport.items);
 
-  /* LOG */
   renderLog(data.systemLog.lines);
 
-  /* TOAST */
+  setText("toastHeader",data.toast.header);
   runTypingToast(data.toast.line);
   setupToast();
 
 });
 </script>
-  
+
 </body>
 </html>
