@@ -1,21 +1,22 @@
 {
   "theme": {
-    "themeColor": "#fff3f8",
-    "bg": "#fff6fb",
-    "bg2": "#fff0f7",
+  "themeColor": "#fff3f8",
 
-    "panel": "rgba(255,250,253,0.92)",
-    "panel2": "rgba(255,240,250,0.8)",
+  "bg": "#fff6fb",
+  "bg2": "#fff0f7",
 
-    "pink": "#ffb6d9",
-    "pink2": "#ffd6ec",
+  "panel": "rgba(255, 248, 240, 0.92)",
+  "panel2": "rgba(255, 244, 235, 0.85)",
 
-    "line": "rgba(255,180,220,0.35)",
+  "pink": "#ffb6d9",
+  "pink2": "#ffd6ec",
 
-    "text": "#5c4b56",
-    "muted": "#9a7d8c",
+  "line": "rgba(255, 190, 210, 0.35)",
 
-    "shadow": "rgba(255,180,220,0.25)"
+  "text": "#5c4b56",
+  "muted": "#a08490",
+
+  "shadow": "rgba(255, 180, 220, 0.25)"
   },
 
   "header": {
