@@ -100,11 +100,25 @@
   <button class="sao-toast-close">✕</button>
   <div class="sao-toast-progress"></div>
 </div>
-
 <script>
 const DATA_URL = "/data/middaypuppy.json";
 
-/* helpers */
+/* ------------------ THEME ENGINE ------------------ */
+function applyTheme(theme){
+  const root = document.documentElement;
+
+  Object.entries(theme).forEach(([key,val])=>{
+    root.style.setProperty(`--${key}`, val);
+  });
+
+  /* update browser color */
+  const meta = document.querySelector("meta[name='theme-color']");
+  if(meta && theme.themeColor){
+    meta.setAttribute("content", theme.themeColor);
+  }
+}
+
+/* ------------------ HELPERS ------------------ */
 function setText(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
 function setHTML(id,v){const el=document.getElementById(id);if(el)el.innerHTML=v;}
 
@@ -123,7 +137,7 @@ function renderBio(entries){
   el.innerHTML="";
   entries.forEach(e=>{
     const li=document.createElement("li");
-    li.innerHTML=`<span class="q-dot"></span>${e.text}<span class="tag ${e.tagClass}">${e.tag}</span>`;
+    li.innerHTML=`<span class="q-dot"></span>${e.text}<span class="tag ${e.tagClass||""}">${e.tag}</span>`;
     el.appendChild(li);
   });
 }
@@ -161,13 +175,13 @@ function renderLog(lines){
   });
 }
 
-/* toast */
+/* ------------------ TOAST (TYPEWRITER) ------------------ */
 function runTypingToast(line){
   const el=document.getElementById("toastType");
   let i=0;
   function type(){
     el.textContent=line.slice(0,i++);
-    if(i<=line.length) setTimeout(type,20);
+    if(i<=line.length) setTimeout(type,18);
   }
   type();
 }
@@ -190,26 +204,40 @@ function setupToast(){
   };
 }
 
+/* ------------------ INIT ------------------ */
 fetch(DATA_URL).then(r=>r.json()).then(data=>{
 
+  /* 🎨 APPLY THEME FIRST */
+  if(data.theme) applyTheme(data.theme);
+
+  /* HEADER */
   setText("siteTitle",data.header.title);
   setText("siteSubtitle",data.header.subtitle);
 
+  /* PROFILE */
   setText("profileName",data.profile.name);
   setHTML("profileMeta",data.profile.metaHtml);
 
   renderList("loadoutList",data.profile.loadout);
+
+  /* BIO */
   renderBio(data.bio.entries);
   renderVibes(data.bio.vibes);
+
+  /* STATS */
   renderStats(data.statsPanel.cards);
+
+  /* STATUS */
   renderList("statusReportList",data.statusReport.items);
+
+  /* LOG */
   renderLog(data.systemLog.lines);
 
+  /* TOAST */
   runTypingToast(data.toast.line);
   setupToast();
 
 });
 </script>
-
 </body>
 </html>
