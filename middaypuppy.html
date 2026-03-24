@@ -18,6 +18,10 @@
   --text:#5c4b56;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   font-family:"Montserrat",sans-serif;
   color:var(--text);
@@ -34,14 +38,14 @@ body{
   padding:20px;
 }
 
-/* WRAPPER (so header + card align perfectly) */
+/* WRAPPER */
 .wrapper{
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 
-/* HEADER CARD */
+/* HEADER */
 .header-card{
   width:1000px;
   margin-bottom:18px;
@@ -78,6 +82,8 @@ body{
   border-radius:999px;
   background:#FCFBF4;
   font-size:12px;
+  text-decoration:none;
+  color:var(--text);
 }
 
 .nav-pill.active{
@@ -120,14 +126,14 @@ body{
   color:#9a7d8c;
 }
 
-/* RIGHT SIDE GRID */
+/* CONTENT GRID */
 .content{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:18px;
 }
 
-/* CARD SECTIONS */
+/* SECTIONS */
 .section{
   background:#FCFBF4;
   border-radius:16px;
@@ -138,7 +144,6 @@ body{
     0 6px 16px rgba(255,180,220,.15);
 }
 
-/* TITLE */
 .title{
   font-weight:800;
   margin-bottom:10px;
@@ -173,7 +178,7 @@ body{
   font-size:12px;
 }
 
-/* FULL WIDTH SECTION */
+/* FULL WIDTH */
 .full{
   grid-column:span 2;
 }
@@ -192,27 +197,27 @@ body{
     </div>
 
     <div class="header-right">
-      <div class="nav-pill active">bio</div>
-      <div class="nav-pill">vibes</div>
-      <div class="nav-pill">moods</div>
+      <a href="#bio" class="nav-pill active">bio</a>
+      <a href="#vibes" class="nav-pill">vibes</a>
+      <a href="#moods" class="nav-pill">moods</a>
     </div>
   </div>
 
-  <!-- MAIN CARD -->
+  <!-- MAIN -->
   <div class="card">
 
-    <!-- LEFT -->
+    <!-- PROFILE -->
     <div class="profile">
       <img src="/images/puppyboypfp.png">
       <div class="name">MiddayPuppy.exe</div>
       <div class="meta">warm • soft • safe</div>
     </div>
 
-    <!-- RIGHT -->
+    <!-- CONTENT -->
     <div class="content">
 
       <!-- BIO -->
-      <div class="section full">
+      <div class="section full" id="bio">
         <div class="title">BIO / INTRO</div>
         <div class="list">
           <div class="item">middaypuppy.exe has logged in</div>
@@ -232,7 +237,7 @@ body{
       </div>
 
       <!-- HOBBIES -->
-      <div class="section">
+      <div class="section" id="vibes">
         <div class="title">HOBBIES</div>
         <div class="list">
           <div class="item">gaming</div>
@@ -242,7 +247,7 @@ body{
       </div>
 
       <!-- MOODS -->
-      <div class="section full">
+      <div class="section full" id="moods">
         <div class="title">MOODS</div>
         <div class="tags">
           <div class="tag">☁ soft</div>
