@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>midnightpuppy.exe – 2AM BIO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="/css/midnightpuppy-bio.css" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/mindnightpuppy-avatar.png" />
+  <link rel="apple-touch-icon" href="/images/mindnightpuppy-avatar.png" />
+  <meta name="theme-color" content="#070914" id="themeColorMeta" />
+</head>
+
+<body>
+  <div class="overlay overlay-rain" aria-hidden="true"></div>
+  <div class="overlay overlay-particles" aria-hidden="true"></div>
+  <div class="overlay overlay-vignette" aria-hidden="true"></div>
+
+  <header class="hud-top">
+    <div class="hud-brand">
+      <div class="hud-title glitch" id="siteTitle" data-text="midnightpuppy.exe">midnightpuppy.exe</div>
+      <div class="hud-sub" id="siteSubtitle">BIO DASHBOARD • SIGNAL UNSTABLE • HEART IN SAFE MODE</div>
+    </div>
+
+    <nav class="hud-nav" id="siteNav" aria-label="Bio navigation"></nav>
+
+    <div class="hud-stats" id="topStats"></div>
+  </header>
+
+  <main class="grid">
+    <section class="panel profile">
+      <div class="panel-head">
+        <span id="profilePanelTitle">USER PROFILE</span>
+        <span class="chip" id="profileChip">ONLINE</span>
+      </div>
+
+      <div class="avatar">
+        <img
+          class="avatar-img"
+          id="avatarImg"
+          src="/images/mindnightpuppy-avatar.png"
+          alt="midnightpuppy.exe avatar"
+          onerror="this.style.display='none'; this.parentElement.classList.add('avatar-fallback');"
+        />
+        <div class="avatar-silhouette" aria-hidden="true"></div>
+      </div>
+
+      <div class="profile-name" id="profileName">MIDNIGHTPUPPY.EXE</div>
+      <div class="profile-meta" id="profileMeta">Build: <b>midnight</b> • Level: <b>21</b> • Status: <b>softly breaking</b></div>
+
+      <div class="bars" id="profileBars"></div>
+
+      <div class="divider"></div>
+
+      <div class="mini-title" id="loadoutTitle">LOADOUT</div>
+      <ul class="list" id="loadoutList"></ul>
+    </section>
+
+    <section class="panel quest">
+      <div class="panel-head">
+        <span id="bioPanelTitle">BIO LOG</span>
+        <span class="chip pink" id="bioChip">LIVE</span>
+      </div>
+
+      <ul class="quests" id="bioLogList"></ul>
+
+      <div class="divider"></div>
+
+      <div class="mini-title" id="vibesTitle">VIBES</div>
+      <div class="chips-row" id="vibesList"></div>
+    </section>
+
+    <section class="panel party">
+      <div class="panel-head">
+        <span id="statsPanelTitle">Stats</span>
+        <span class="chip pink" id="statsPanelChip">3</span>
+      </div>
+
+      <div id="statsCards"></div>
+    </section>
+
+    <section class="panel battle">
+      <div class="panel-head">
+        <span id="statusPanelTitle">STATUS REPORT</span>
+        <span class="chip" id="statusPanelChip">LAST 24H</span>
+      </div>
+
+      <ul class="list" id="statusReportList"></ul>
+    </section>
+
+    <section class="panel syslog">
+      <div class="panel-head">
+        <span id="systemLogTitle">SYSTEM LOG</span>
+        <span class="chip pink" id="systemLogChip">STREAMING</span>
+      </div>
+
+      <div class="terminal" aria-label="System log terminal" id="systemLogLines"></div>
+    </section>
+  </main>
+
+  <div class="sao-toast show" role="status" aria-live="polite">
+    <div class="sao-toast-header" id="toastHeader">SYSTEM</div>
+    <div class="sao-toast-body">
+      <span class="type" id="toastType"></span><span class="caret" aria-hidden="true">▍</span>
+    </div>
+    <button class="sao-toast-close" type="button" aria-label="Close system status">✕</button>
+    <div class="sao-toast-progress"></div>
+  </div>
+
+  <script>
+  const DATA_URL = "/data/midnightpuppy.json";
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el && value !== undefined && value !== null) el.textContent = value;
+    }
+
+    function setHTML(id, value) {
+      const el = document.getElementById(id);
+      if (el && value !== undefined && value !== null) el.innerHTML = value;
+    }
+
+    function applyTheme(theme) {
+      if (!theme) return;
+
+      const root = document.documentElement;
+
+      const themeMap = {
+        bg: "--bg",
+        bg2: "--bg2",
+        panel: "--panel",
+        panel2: "--panel2",
+        cyan: "--cyan",
+        cyan2: "--cyan2",
+        blue: "--blue",
+        violet: "--violet",
+        purple: "--purple",
+        pink: "--pink",
+        pink2: "--pink2",
+        line: "--line",
+        line2: "--line2",
+        text: "--text",
+        muted: "--muted",
+        shadow: "--shadow"
+      };
+
+      Object.entries(themeMap).forEach(([jsonKey, cssVar]) => {
+        if (theme[jsonKey]) {
+          root.style.setProperty(cssVar, theme[jsonKey]);
+        }
+      });
+
+      if (theme.themeColor) {
+        const meta = document.getElementById("themeColorMeta");
+        if (meta) meta.setAttribute("content", theme.themeColor);
+      }
+
+      if (theme.titleGlow) {
+        root.style.setProperty("--title-glow", theme.titleGlow);
+      }
+
+      if (theme.glitchTop) {
+        root.style.setProperty("--glitch-top", theme.glitchTop);
+      }
+
+      if (theme.glitchBottom) {
+        root.style.setProperty("--glitch-bottom", theme.glitchBottom);
+      }
+    }
+
+    function renderNav(navItems) {
+      const nav = document.getElementById("siteNav");
+      nav.innerHTML = "";
+
+      navItems.forEach((item) => {
+        const a = document.createElement("a");
+        a.href = item.href || "#";
+        a.className = "hud-link" + (item.active ? " active" : "");
+        a.textContent = item.label || "LINK";
+        nav.appendChild(a);
+      });
+    }
+
+    function renderTopStats(stats) {
+      const wrap = document.getElementById("topStats");
+      wrap.innerHTML = "";
+
+      stats.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "stat";
+        div.innerHTML = `${escapeHtml(item.label)} <b>${escapeHtml(item.value)}</b>`;
+        wrap.appendChild(div);
+      });
+    }
+
+    function renderBars(bars) {
+      const wrap = document.getElementById("profileBars");
+      wrap.innerHTML = "";
+
+      bars.forEach((bar) => {
+        const outer = document.createElement("div");
+        outer.className = "bar-wrap";
+
+        const fillClass = bar.fillClass ? `fill ${bar.fillClass}` : "fill";
+        const width = Math.max(0, Math.min(Number(bar.percent || 0), 100));
+
+        outer.innerHTML = `
+          <div class="bar-label">${escapeHtml(bar.label)}</div>
+          <div class="bar"><div class="${fillClass}" style="width:${width}%"></div></div>
+          <div class="bar-value">${escapeHtml(bar.value)}</div>
+        `;
+        wrap.appendChild(outer);
+      });
+    }
+
+    function renderSimpleList(id, items) {
+      const list = document.getElementById(id);
+      list.innerHTML = "";
+
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+      });
+    }
+
+    function renderBioLog(entries) {
+      const list = document.getElementById("bioLogList");
+      list.innerHTML = "";
+
+      entries.forEach((entry) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span class="q-dot"></span>
+          ${escapeHtml(entry.text)}
+          <span class="tag ${escapeHtml(entry.tagClass || "")}">${escapeHtml(entry.tag)}</span>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function renderVibes(vibes) {
+      const wrap = document.getElementById("vibesList");
+      wrap.innerHTML = "";
+
+      vibes.forEach((vibe) => {
+        const span = document.createElement("span");
+        span.className = "soft-chip";
+        span.textContent = vibe;
+        wrap.appendChild(span);
+      });
+    }
+
+    function renderStatsCards(cards) {
+      const wrap = document.getElementById("statsCards");
+      wrap.innerHTML = "";
+
+      cards.forEach((card, index) => {
+        const div = document.createElement("div");
+        div.className = "member";
+
+        const pfpClass = index === 0 ? "pfp" : `pfp pfp${index + 1}`;
+        const width = Math.max(0, Math.min(Number(card.percent || 0), 100));
+
+        div.innerHTML = `
+          <div class="${pfpClass}"></div>
+          <div class="m-info">
+            <div class="m-name">${escapeHtml(card.name)} <span class="lvl">${escapeHtml(card.level)}</span></div>
+            <div class="m-bars">
+              <div class="m-bar"><div class="m-fill" style="width:${width}%"></div></div>
+              <div class="m-sub">${escapeHtml(card.subtext)}</div>
+            </div>
+          </div>
+        `;
+        wrap.appendChild(div);
+      });
+    }
+
+    function renderSystemLog(lines) {
+      const wrap = document.getElementById("systemLogLines");
+      wrap.innerHTML = "";
+
+      lines.forEach((line) => {
+        if (line.type === "gap") {
+          const gap = document.createElement("div");
+          gap.className = "term-gap";
+          wrap.appendChild(gap);
+          return;
+        }
+
+        const row = document.createElement("div");
+        row.className = "term-line";
+
+        const statusHTML = line.status
+          ? ` <span class="${escapeHtml(line.statusClass || "")}">${escapeHtml(line.status)}</span>`
+          : "";
+
+        const messageHTML = line.dimPrefix
+          ? `<span class="term-dim">${escapeHtml(line.dimPrefix)}</span> ${escapeHtml(line.message)}${statusHTML}`
+          : `${escapeHtml(line.message)}${statusHTML}`;
+
+        row.innerHTML = `
+          <span class="term-time">${escapeHtml(line.time)}</span>
+          ${messageHTML}
+        `;
+        wrap.appendChild(row);
+      });
+    }
+
+    function runTypingToast(line) {
+      const el = document.getElementById("toastType");
+      let i = 0;
+      el.textContent = "";
+
+      function typeNext() {
+        el.textContent = line.slice(0, i++);
+        if (i <= line.length) setTimeout(typeNext, 24);
+      }
+
+      typeNext();
+    }
+
+    function setupToastTimer() {
+      const BASE_TIME = 14000;
+      const STAGGER = 1500;
+
+      document.querySelectorAll(".sao-toast").forEach((toast, index) => {
+        const progress = toast.querySelector(".sao-toast-progress");
+        const totalTime = BASE_TIME + (index * STAGGER);
+
+        if (progress) {
+          progress.style.animation = `toastTimer ${totalTime / 1000}s linear forwards`;
+        }
+
+        const autoClose = setTimeout(() => {
+          toast.classList.remove("show");
+          setTimeout(() => toast.remove(), 220);
+        }, totalTime);
+
+        const closeBtn = toast.querySelector(".sao-toast-close");
+        if (closeBtn) {
+          closeBtn.addEventListener("click", () => {
+            clearTimeout(autoClose);
+            if (progress) progress.style.animation = "none";
+            toast.classList.remove("show");
+            setTimeout(() => toast.remove(), 220);
+          });
+        }
+      });
+    }
+
+    async function loadBioData() {
+      try {
+        const response = await fetch(DATA_URL, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Failed to load ${DATA_URL}: ${response.status}`);
+
+        const data = await response.json();
+
+        applyTheme(data.theme);
+
+        document.title = data.head.title || document.title;
+
+        const siteTitle = document.getElementById("siteTitle");
+        siteTitle.textContent = data.header.title;
+        siteTitle.setAttribute("data-text", data.header.title);
+
+        setText("siteSubtitle", data.header.subtitle);
+        renderNav(data.header.nav);
+        renderTopStats(data.header.stats);
+
+        setText("profilePanelTitle", data.profile.panelTitle);
+        setText("profileChip", data.profile.panelChip);
+
+        const avatarImg = document.getElementById("avatarImg");
+        avatarImg.src = data.profile.avatar.src;
+        avatarImg.alt = data.profile.avatar.alt || "avatar";
+
+        setText("profileName", data.profile.name);
+        setHTML("profileMeta", data.profile.metaHtml);
+        renderBars(data.profile.bars);
+        setText("loadoutTitle", data.profile.loadoutTitle);
+        renderSimpleList("loadoutList", data.profile.loadout);
+
+        setText("bioPanelTitle", data.bio.panelTitle);
+        setText("bioChip", data.bio.panelChip);
+        renderBioLog(data.bio.entries);
+        setText("vibesTitle", data.bio.vibesTitle);
+        renderVibes(data.bio.vibes);
+
+        setText("statsPanelTitle", data.statsPanel.panelTitle);
+        setText("statsPanelChip", data.statsPanel.panelChip);
+        renderStatsCards(data.statsPanel.cards);
+
+        setText("statusPanelTitle", data.statusReport.panelTitle);
+        setText("statusPanelChip", data.statusReport.panelChip);
+        renderSimpleList("statusReportList", data.statusReport.items);
+
+        setText("systemLogTitle", data.systemLog.panelTitle);
+        setText("systemLogChip", data.systemLog.panelChip);
+        renderSystemLog(data.systemLog.lines);
+
+        setText("toastHeader", data.toast.header);
+        runTypingToast(data.toast.line);
+      } catch (error) {
+        console.error(error);
+        setText("toastType", "failed to load midnightpuppy.json");
+      }
+    }
+
+    setupToastTimer();
+    loadBioData();
+  </script>
+</body>
+</html>
