@@ -437,3 +437,53 @@ body{
   border-radius:18px !important;
   overflow:hidden;
 }
+
+/* ========================= */
+/* STATUS REPORT SPACING FIX */
+/* ========================= */
+
+/* container breathing room */
+.battle{
+  padding:18px;
+}
+
+/* list spacing */
+.battle .list{
+  display:flex;
+  flex-direction:column;
+  gap:12px; /* more breathing space between items */
+}
+
+/* each card */
+.battle .list li{
+  padding:14px 16px; /* more internal space */
+  border-radius:14px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+
+  display:flex;
+  align-items:center;
+
+  line-height:1.4;
+  font-size:14px;
+
+  transition:.2s ease;
+}
+
+/* subtle hover (optional but nice) */
+.battle .list li:hover{
+  background:var(--surface-3);
+  transform:translateY(-1px);
+}
+
+/* optional: soften text alignment feel */
+.battle .list li::before{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--pink);
+  margin-right:10px;
+  flex-shrink:0;
+  opacity:.7;
+}
