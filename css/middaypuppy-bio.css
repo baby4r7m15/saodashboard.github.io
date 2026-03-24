@@ -359,3 +359,109 @@ body{
       "syslog";
   }
 }
+
+/* ========================= */
+/* PROFILE UPGRADE */
+/* ========================= */
+
+.profile-name{
+  font-weight:900;
+  font-size:20px;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+/* meta block */
+.profile-meta{
+  background:rgba(255,255,255,0.7);
+  border:1px solid var(--line);
+  padding:8px 10px;
+  border-radius:10px;
+  font-size:12px;
+  margin-bottom:12px;
+}
+
+/* bars container */
+.bars{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+/* each stat block */
+.bar-wrap{
+  background:rgba(255,255,255,0.7);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  box-shadow:0 0 10px rgba(255,180,220,.08);
+}
+
+.bar-label{
+  font-size:11px;
+  letter-spacing:1px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+/* progress bar */
+.bar{
+  height:8px;
+  background:#ffe6f1;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--pink),var(--pink2));
+  box-shadow:0 0 10px rgba(255,180,220,.25);
+}
+
+/* value text */
+.bar-value{
+  font-size:11px;
+  margin-top:6px;
+  color:var(--muted);
+}
+
+/* ========================= */
+/* LOADOUT UPGRADE */
+/* ========================= */
+
+.mini-title{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+  color:#ff8fc4;
+  margin-bottom:8px;
+}
+
+/* make loadout items feel like cards */
+.profile .list li{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 12px;
+  box-shadow:0 0 8px rgba(255,180,220,.1);
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  transition:.2s ease;
+}
+
+/* cute bullet */
+.profile .list li::before{
+  content:"🐾";
+  font-size:12px;
+  opacity:.7;
+}
+
+/* hover feel */
+.profile .list li:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 14px rgba(255,180,220,.2);
+}
