@@ -390,3 +390,50 @@ body{
       "syslog";
   }
 }
+
+/* ========================= */
+/* FIX ROUNDED CORNERS */
+/* ========================= */
+
+/* main panels */
+.panel{
+  border-radius:18px !important;
+  overflow:hidden; /* ensures inner content respects rounding */
+}
+
+/* ALL card surfaces */
+.quests li,
+.member,
+.battle .list li,
+.profile .list li,
+.terminal{
+  border-radius:14px !important;
+  overflow:hidden;
+}
+
+/* profile bars */
+.bar-wrap{
+  border-radius:14px !important;
+  overflow:hidden;
+}
+
+/* avatar container */
+.avatar{
+  border-radius:18px !important;
+  overflow:hidden;
+}
+
+/* nav pills */
+.hud-link,
+.stat,
+.soft-chip,
+.tag,
+.chip{
+  border-radius:999px !important;
+}
+
+/* toast */
+.sao-toast{
+  border-radius:18px !important;
+  overflow:hidden;
+}
