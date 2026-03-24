@@ -92,13 +92,16 @@
 </main>
 
 <!-- TOAST -->
-<div class="sao-toast show" id="toast">
-  <div class="sao-toast-header" id="toastHeader">SYSTEM</div>
+<div id="toast" class="sao-toast">
+  <div class="sao-toast-header">SYSTEM</div>
+
   <div class="sao-toast-body">
-    <span id="toastType"></span><span class="caret">▍</span>
+    <span id="toastType"></span><span class="caret"></span>
   </div>
-  <button class="sao-toast-close">✕</button>
+
   <div class="sao-toast-progress"></div>
+
+  <button class="sao-toast-close">×</button>
 </div>
 
   <script>
@@ -244,21 +247,36 @@ function runTypingToast(line){
 }
 
 function setupToast(){
-  const toast=document.getElementById("toast");
-  const close=toast.querySelector(".sao-toast-close");
-  const progress=toast.querySelector(".sao-toast-progress");
+  const toast = document.getElementById("toast");
+  if(!toast) return;
 
-  progress.style.animation="toastTimer 8s linear forwards";
+  const close = toast.querySelector(".sao-toast-close");
+  const progress = toast.querySelector(".sao-toast-progress");
 
-  const timer=setTimeout(()=>{
+  /* ✅ SHOW TOAST */
+  requestAnimationFrame(() => {
+    toast.classList.add("show");
+  });
+
+  /* ✅ SAFE PROGRESS (won’t crash if missing) */
+  if(progress){
+    progress.style.animation = "toastTimer 8s linear forwards";
+  }
+
+  /* ✅ AUTO CLOSE */
+  const timer = setTimeout(()=>{
     toast.classList.remove("show");
-    setTimeout(()=>toast.remove(),250);
+    setTimeout(()=>toast.remove(),300);
   },8000);
 
-  close.onclick=()=>{
-    clearTimeout(timer);
-    toast.remove();
-  };
+  /* ✅ CLOSE BUTTON FIX */
+  if(close){
+    close.onclick = () => {
+      clearTimeout(timer);
+      toast.classList.remove("show");
+      setTimeout(()=>toast.remove(),300);
+    };
+  }
 }
 
 /* ------------------ INIT ------------------ */
