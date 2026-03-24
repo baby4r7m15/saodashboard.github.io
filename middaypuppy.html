@@ -1,36 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>middaypuppy.exe</title>
+  <meta charset="UTF-8" />
+  <title>middaypuppy.exe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="stylesheet" href="/css/middaypuppy-bio.css" />
-<link rel="icon" href="/images/puppyboypfp.png" />
-
+  <link rel="stylesheet" href="/css/middaypuppy-bio.css" />
+  <link rel="icon" href="/images/puppyboypfp.png" />
+  <meta name="theme-color" content="#fff3f8" id="themeColorMeta" />
 </head>
+
 <body>
+  <div class="overlay overlay-glow"></div>
+  <div class="overlay overlay-sparkles"></div>
+  <div class="overlay overlay-vignette"></div>
 
-<div class="bg"></div>
+  <header class="hud-top">
+    <div class="hud-brand">
+      <div class="hud-title" id="siteTitle">middaypuppy.exe</div>
+      <div class="hud-sub" id="siteSubtitle">BIO DASHBOARD • SIGNAL STABLE • HEART WARM</div>
+    </div>
 
-<div class="card">
+    <nav class="hud-nav" id="siteNav"></nav>
+    <div class="hud-stats" id="topStats"></div>
+  </header>
 
-  <div class="profile">
-    <img src="/images/puppyboypfp.png" id="pfp" />
-    <h1 id="name">middaypuppy.exe</h1>
-    <p id="tagline">loading warmth...</p>
-  </div>
+  <main class="grid">
+    <section class="panel profile">
+      <div class="panel-head">
+        <span>USER PROFILE</span>
+        <span class="chip">ONLINE</span>
+      </div>
 
-  <div class="bio" id="bio"></div>
+      <div class="avatar">
+        <img id="avatarImg" src="/images/puppyboypfp.png" />
+      </div>
 
-  <div class="stats" id="stats"></div>
+      <div class="profile-name" id="profileName"></div>
+      <div class="profile-meta" id="profileMeta"></div>
 
-  <div class="footer">
-    <span>☁ soft system active</span>
-  </div>
+      <div class="bars" id="profileBars"></div>
 
-</div>
+      <div class="divider"></div>
 
-<script src="/data/app.js"></script>
+      <div class="mini-title">LOADOUT</div>
+      <ul class="list" id="loadoutList"></ul>
+    </section>
+
+    <section class="panel quest">
+      <div class="panel-head">
+        <span>BIO LOG</span>
+        <span class="chip pink">LIVE</span>
+      </div>
+
+      <ul class="quests" id="bioLogList"></ul>
+
+      <div class="divider"></div>
+
+      <div class="mini-title">VIBES</div>
+      <div class="chips-row" id="vibesList"></div>
+    </section>
+
+    <section class="panel party">
+      <div class="panel-head">
+        <span>Stats</span>
+        <span class="chip pink">soft</span>
+      </div>
+
+      <div id="statsCards"></div>
+    </section>
+
+    <section class="panel battle">
+      <div class="panel-head">
+        <span>STATUS REPORT</span>
+        <span class="chip">DAYTIME</span>
+      </div>
+
+      <ul class="list" id="statusReportList"></ul>
+    </section>
+
+    <section class="panel syslog">
+      <div class="panel-head">
+        <span>SYSTEM LOG</span>
+        <span class="chip pink">ACTIVE</span>
+      </div>
+
+      <div class="terminal" id="systemLogLines"></div>
+    </section>
+  </main>
+
+  <script src="/data/app.js"></script>
 </body>
 </html>
