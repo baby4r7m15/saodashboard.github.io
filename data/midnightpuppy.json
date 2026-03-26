@@ -37,7 +37,7 @@
     "stats": [
       {
         "label": "mood",
-        "value": "medium"
+        "value": "low"
       },
       {
         "label": "ping",
@@ -67,7 +67,7 @@
       },
       {
         "label": "AFFECTION.EXE",
-        "percent": 11,
+        "percent": 3,
         "value": "corrupted / restore point missing",
         "fillClass": "ep"
       }
@@ -103,6 +103,12 @@
         "level": "denied",
         "percent": 9,
         "subtext": "3:17am / still awake"
+      },
+{
+        "name": "depression.xml",
+        "level": "active",
+        "percent": 98,
+        "subtext": "alone and broken"
       }
     ]
   },
