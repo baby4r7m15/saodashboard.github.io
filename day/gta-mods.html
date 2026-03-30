@@ -1,70 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>middaypuppy.exe | GTA V Mods</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/png" sizes="512x512" href="/images/puppyboypfp.png" />
-<link rel="apple-touch-icon" href="/images/puppyboypfp.png" />
-<meta name="theme-color" content="#fff0f7" id="themeColorMeta" />
-<link rel="stylesheet" href="/css/middaypuppy-bio.css">
-
+  <meta charset="UTF-8" />
+  <title>middaypuppy.exe | GTA V Mods</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FCFBF4" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
+  <link rel="stylesheet" href="/css/mods.css" />
 </head>
 <body>
+  <div class="page-shell">
+    <div class="bg-overlay"></div>
 
-<div class="wrapper">
+    <main class="mods-page">
+      <header class="hero-card">
+        <div class="hero-text">
+          <p class="eyebrow">middaypuppy.exe • soft collection hub</p>
+          <h1>cozy finds ♡</h1>
+          <p class="hero-copy">
+            a warm little library for favorites, downloads, and fluffy things worth keeping around
+          </p>
 
-  <!-- HEADER -->
-  <div class="header-card">
-    <div>
-      <div class="header-title">middaypuppy.exe</div>
-      <div class="header-sub">AKA Artemis <3</div>
-    </div>
+          <nav class="hero-nav" aria-label="Section links">
+            <a href="/" class="nav-pill">home</a>
+            <a href="/#bio" class="nav-pill">bio</a>
+            <a href="/#vibes" class="nav-pill">vibes</a>
+            <a href="/mods.html" class="nav-pill active">collection</a>
+          </nav>
+        </div>
 
-    <div class="header-right">
-      <a href="/day/middaypuppy" class="nav-pill">bio</a>
-      <a href="/day/links" class="nav-pill">links</a>
-    </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-label">collection</span>
+            <strong id="stat-total">0</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">shown</span>
+            <strong id="stat-shown">0</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">mood</span>
+            <strong>sunlit</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="toolbar-card">
+        <div class="toolbar-top">
+          <div>
+            <div class="section-title">browse the collection</div>
+            <p class="section-subtitle">
+              soft, rounded, filtered, and organized like a warm little shelf
+            </p>
+          </div>
+
+          <label class="search-wrap" for="searchInput">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10.5 4a6.5 6.5 0 1 1 0 13a6.5 6.5 0 0 1 0-13Zm0 0l9.5 9.5" />
+            </svg>
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="search cozy finds..."
+              autocomplete="off"
+            />
+          </label>
+        </div>
+
+        <div class="filters" id="filters" aria-label="Collection filters">
+          <button class="filter-pill active" type="button" data-filter="all">all</button>
+          <button class="filter-pill" type="button" data-filter="free">free</button>
+          <button class="filter-pill" type="button" data-filter="paid">paid</button>
+          <button class="filter-pill" type="button" data-filter="cozy">cozy</button>
+          <button class="filter-pill" type="button" data-filter="favorites">favorites</button>
+        </div>
+      </section>
+
+      <section class="collection-grid" id="collectionGrid" aria-live="polite"></section>
+
+      <template id="cardTemplate">
+        <article class="collection-card">
+          <a class="thumb-wrap" href="#" target="_blank" rel="noopener noreferrer">
+            <img class="thumb" src="" alt="" loading="lazy" />
+          </a>
+
+          <div class="card-body">
+            <div class="card-topline">
+              <span class="badge type-badge"></span>
+              <span class="badge mood-badge"></span>
+            </div>
+
+            <h2 class="card-title"></h2>
+            <p class="card-desc"></p>
+
+            <div class="meta-row">
+              <span class="meta-item price-text"></span>
+              <span class="meta-item tag-text"></span>
+            </div>
+
+            <div class="card-actions">
+              <a class="card-button primary-button" href="#" target="_blank" rel="noopener noreferrer">open</a>
+              <a class="card-button secondary-button" href="#" target="_blank" rel="noopener noreferrer">preview</a>
+            </div>
+          </div>
+        </article>
+      </template>
+    </main>
   </div>
 
-  <!-- MAIN -->
-  <div class="card">
-
-    <!-- PROFILE -->
-    <div class="profile">
-  <img src="/images/puppyboypfp.png">
-  <!-- MINI HUD -->
-  <div class="profile-hud">
-
-    <div class="status-line">These are links to the mods I use.</div>
-
-    <div class="mini-pills">
-      <span>☁ soft</span>
-      <span>☀ warm</span>
-      <span>♡ happy</span>
-    </div>
-
-  </div>
-</div>
-
-    <!-- CONTENT -->
-    <div class="content">
-
-      <!-- BIO -->
-<div class="section full" id="bio">
-  <div class="title">Links</div>
-  <div class="list">
-    <a class="item" href="/images/middaypuppycrate.png" download="middaypuppycrate.png" target="_blank">
-  Download
-</a>
-  </div>
-</div>
-
-    </div>
-
-  </div>
-
-</div>
-
+  <script src="/js/mods.js"></script>
 </body>
 </html>
