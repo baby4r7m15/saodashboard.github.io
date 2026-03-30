@@ -1,55 +1,76 @@
-const filterButtons = document.querySelectorAll(".filter-pill");
+const grid = document.getElementById("modsGrid");
 const searchInput = document.getElementById("searchInput");
-const cards = document.querySelectorAll(".mod-card");
+const filterButtons = document.querySelectorAll(".filter-pill");
 const resultsCount = document.getElementById("resultsCount");
 const emptyState = document.getElementById("emptyState");
 
+let mods = [];
 let activeFilter = "all";
 
-function updateCollection() {
-  const searchValue = searchInput.value.trim().toLowerCase();
-  let visibleCount = 0;
-
-  cards.forEach((card) => {
-    const categories = (card.dataset.category || "").toLowerCase().split(" ");
-    const title = (card.dataset.title || "").toLowerCase();
-    const description = (card.dataset.description || "").toLowerCase();
-
-    const matchesFilter =
-      activeFilter === "all" || categories.includes(activeFilter);
-
-    const matchesSearch =
-      !searchValue ||
-      title.includes(searchValue) ||
-      description.includes(searchValue) ||
-      categories.join(" ").includes(searchValue);
-
-    if (matchesFilter && matchesSearch) {
-      card.classList.remove("hidden");
-      visibleCount++;
-    } else {
-      card.classList.add("hidden");
-    }
+fetch("/data/mods.json")
+  .then(res => res.json())
+  .then(data => {
+    mods = data;
+    render();
   });
 
-  resultsCount.textContent = `Showing ${visibleCount} item${visibleCount === 1 ? "" : "s"}`;
+function render() {
+  const search = searchInput.value.toLowerCase();
 
-  if (visibleCount === 0) {
-    emptyState.classList.remove("hidden");
-  } else {
-    emptyState.classList.add("hidden");
-  }
+  const filtered = mods.filter(mod => {
+    const matchesFilter =
+      activeFilter === "all" ||
+      mod.category.includes(activeFilter);
+
+    const matchesSearch =
+      mod.title.toLowerCase().includes(search) ||
+      mod.description.toLowerCase().includes(search);
+
+    return matchesFilter && matchesSearch;
+  });
+
+  grid.innerHTML = "";
+
+  filtered.forEach(mod => {
+    const card = document.createElement("article");
+    card.className = "mod-card";
+
+    card.innerHTML = `
+      <div class="mod-thumb">
+        <img src="${mod.image}" alt="${mod.title}" />
+        <span class="badge ${mod.badge}">${mod.badge}</span>
+      </div>
+
+      <div class="mod-body">
+        <div class="mod-meta">
+          ${mod.tags.map(tag => `<span class="mini-tag">${tag}</span>`).join("")}
+        </div>
+
+        <h3>${mod.title}</h3>
+        <p>${mod.description}</p>
+
+        <div class="mod-actions">
+          <a href="${mod.link}" class="action-btn primary" target="_blank" rel="noopener noreferrer">
+            Download
+          </a>
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  resultsCount.textContent = `Showing ${filtered.length} item${filtered.length !== 1 ? "s" : ""}`;
+  emptyState.classList.toggle("hidden", filtered.length !== 0);
 }
 
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    filterButtons.forEach((btn) => btn.classList.remove("active"));
-    button.classList.add("active");
-    activeFilter = button.dataset.filter;
-    updateCollection();
+filterButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    filterButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeFilter = btn.dataset.filter;
+    render();
   });
 });
 
-searchInput.addEventListener("input", updateCollection);
-
-updateCollection();
+searchInput.addEventListener("input", render);
